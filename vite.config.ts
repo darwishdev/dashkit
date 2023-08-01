@@ -29,7 +29,7 @@ const external = [
   "vue-i18n",
   "vue-router",
   "xlsx",
-],
+]
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(), svgLoader(),
