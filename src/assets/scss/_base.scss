@@ -11,9 +11,7 @@
 @font-face {
   font-family: "Segoe UI";
   font-style: normal;
-  src: local("Segoe UI Bold"),
-    url("https://static.exploremelon.com/dashkit/fonts/SegoeUI.woff")
-      format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: local("Segoe UI Bold"), url("/fonts/SegoeUI.woff") format("woff");
 }
 body {
   min-height: 100%;

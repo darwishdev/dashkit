@@ -15,6 +15,8 @@ import { AppMenu } from "@/components/base"
 
 // import i18n from '@/plugins/i18n'
 export default defineComponent({
+    name: "AppLayout",
+
     components: {
         Sidebar,
         DynamicDialog,
@@ -29,6 +31,7 @@ export default defineComponent({
     beforeCreate() {
         if (localStorage.getItem('asideOpened') == 'true') {
             this.toggleDesktopMenu()
+
         }
     },
     setup() {
@@ -52,7 +55,8 @@ export default defineComponent({
     <div class="layout-wrapper" :class="{ 'layout-sidebar-active': isMenuOpened }">
         <aside class="desktop-menu">
             <div class="desktop-menu-header">
-                <app-logo />
+                <app-logo class="all-logo" />
+                <app-logo iconOnly class="icon-logo" />
                 <icon-btn id="sidebar-lock-icon" :icon="isMenuOpened ? 'lock' : 'lock-open'"
                     @click.prevent="toggleDesktopMenu" />
             </div>
@@ -69,9 +73,13 @@ export default defineComponent({
         </div>
         <Sidebar class="p-sidebar-sm" v-model:visible="isSideBarVisible" :position="isRtl ? 'right' : 'left'">
             <template #header>
-                <app-logo />
+                <app-logo class="all-logo" />
+                <app-logo iconOnly class="icon-logo" />
             </template>
-            <app-menu />
+            <KeepAlive>
+                <app-menu />
+            </KeepAlive>
+
         </Sidebar>
         <toast>
             <template #message="slotProps">
@@ -84,6 +92,6 @@ export default defineComponent({
                 </div>
             </template>
         </toast>
-        <dynamic-dialog />
+        <dynamic-dialog ref="mainDialog" />
     </div>
 </template>

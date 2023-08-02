@@ -25,14 +25,14 @@
     "url": "https://github.com/darwishdev/dashkit/issues"
   },
   "homepage": "https://dashkit.exploremelon.com",
-  "module": "dist/DashKit.js",
   "author": "Darwishdev",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/darwishdev/dash-kit"
   },
-  "types": "dist/DashKit.d.ts",
+  "module": "dist/DashKit.d.ts",
+  "types": "dist/components/base.d.ts",
   "exports": {
     ".": "./dist/DashKit.js",
     "./types": "./dist/types/types.d.ts",

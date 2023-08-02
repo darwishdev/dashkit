@@ -10,10 +10,9 @@ import { plugin, defaultConfig } from '@formkit/vue'
 import getWrappedConfig from '@/plugins/formkit.custom.config'
 import ToastService from 'primevue/toastservice';
 import DialogService from 'primevue/dialogservice';
+// import { useDialog } from "primevue/usedialog";
 import { DashKitConfig } from "@/types/types"
 import type { DefaultConfigOptions } from '@formkit/vue'
-import { useDialog } from "primevue/usedialog";
-import { useToast } from 'primevue/usetoast';
 export default {
     install: (app: App, config: DashKitConfig) => {
         // check if the use passed uploadHandler to handler the custom inputs array
@@ -26,9 +25,9 @@ export default {
 
         // use the packages
         app.use(PrimeVue)
-            .use(DialogService)
             .use(i18n)
             .use(ToastService)
+            .use(DialogService)
             .use(plugin, defaultConfig(formKitConfig))
 
         FormFactory.InitTranslation(i18n)
@@ -37,9 +36,9 @@ export default {
         if (config.loginHandler) {
             app.provide('loginHandler', config.loginHandler)
         }
-        app.provide('useDialog', useDialog)
-        app.provide('useTotast', useToast)
         app.provide('i18n', i18n)
+        // const dialog = useDialog()
+        // app.provide('useDialog', useDialog)
 
         // add button to global components
         app.component('Button', Button)

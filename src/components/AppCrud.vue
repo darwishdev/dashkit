@@ -7,11 +7,10 @@ import { PropType, ref, defineComponent } from 'vue'
 import AccordionTab from 'primevue/accordiontab';
 import Accordion from 'primevue/accordion';
 import { useDialogCreate } from '@/composables/composables';
-import type { dialogCreateParms } from '@/composables/useDialogCreate';
-import type { CrudOptions, FormFilterParams, FormCreateParams, ToastError, ImportHandler } from '@/types/types'
+
+import type { CrudOptions, FormFilterParams, FormCreateParams, ToastError, DialogCreateParms, ImportHandler } from '@/types/types'
 import { useToast } from 'primevue/usetoast';
 import { useI18n } from 'vue-i18n';
-import { useDialog } from 'primevue/usedialog'
 export default defineComponent({
     props: {
         options: {
@@ -37,7 +36,6 @@ export default defineComponent({
         Accordion,
     },
     setup(props, { emit }) {
-        const dialog = useDialog
         const toast = useToast();
         const { t } = useI18n()
         const { push, currentRoute } = useRouter()
@@ -47,12 +45,12 @@ export default defineComponent({
         const filterModel = ref({})
         const modelDisplay = ref({})
         if (props.createForm) {
-            const createDialogParms: dialogCreateParms = {
+            const createDialogParms: DialogCreateParms = {
                 onConfirmed: () => {
                     emit('onShowcreateDialog')
                 },
                 form: props.createForm,
-                useDialog: dialog,
+
 
             }
             createDialog = useDialogCreate(createDialogParms);

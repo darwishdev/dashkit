@@ -1,12 +1,12 @@
 import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 import vue from '@vitejs/plugin-vue'
-import svgLoader from 'vite-svg-loader'
+import svgLoader from 'vite-vite-svg-loadersvg-loader'
 import dts from 'vite-plugin-dts';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(), svgLoader(),
-  dts({ include: ["src/DashKit.ts", "src/composables/composables.ts", "src/components/base.ts", "src/views/views.ts", "src/views/LoginView.vue", "src/views/ProfileView.vue", "src/forms/forms.ts", "src/types/types.ts", "src/utils/helpers.ts"] }),
+  dts({ include: ["src/DashKit.ts", "src/composables/composables.ts", "src/composables/useDialogDeleteRestore.ts", "src/components/base.ts", "src/views/views.ts", "src/views/LoginView.vue", "src/views/ProfileView.vue", "src/forms/forms.ts", "src/types/types.ts", "src/utils/helpers.ts"] }),
   ],
   resolve: {
     alias: {
@@ -16,7 +16,7 @@ export default defineConfig({
   build: {
     cssCodeSplit: false,
     lib: {
-      entry: ["./src/DashKit.ts", "src/composables/composables.ts", "src/components/base.ts", "src/views/views.ts", "src/forms/forms.ts", "src/utils/helpers.ts", "./src/assets/scss/app.scss"],
+      entry: ["./src/DashKit.ts", "src/composables/composables.ts", "src/composables/useDialogDeleteRestore.ts", "src/components/base.ts", "src/views/views.ts", "src/forms/forms.ts", "src/utils/helpers.ts", "./src/assets/scss/app.scss"],
       formats: ["es"],
       name: "DashKit",
       fileName: (_, entry) => {
@@ -35,6 +35,10 @@ export default defineConfig({
         if (entry == 'composables') {
           return `composables/composables.js`
         }
+        if (entry == 'useDialogDeleteRestore') {
+          return `composables/useDialogDeleteRestore.js`
+        }
+
         return `${entry}.js`
       }
     },

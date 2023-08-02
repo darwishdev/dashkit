@@ -140,3 +140,14 @@
 .p-dialog {
   background: var(--color-dialog) !important;
 }
+
+.p-panelmenu
+  .p-panelmenu-header
+  .p-panelmenu-header-content
+  .p-panelmenu-header-action {
+  color: var(--color-white);
+}
+
+.p-panelmenu .p-panelmenu-content {
+  background: var(--color-card);
+}

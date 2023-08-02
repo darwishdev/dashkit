@@ -1,6 +1,20 @@
 .layout-wrapper {
   --menu-width: var(--menu-width-closed);
   min-height: 100vh;
+  & .icon-logo,
+  & .all-logo {
+    display: none !important;
+  }
+  &:not(.layout-sidebar-active) {
+    & .icon-logo {
+      display: flex !important;
+    }
+  }
+  &.layout-sidebar-active {
+    & .logo {
+      display: flex !important;
+    }
+  }
   .p-panelmenu .p-panelmenu-panel {
     position: relative;
   }
@@ -58,8 +72,8 @@
     top: 0;
     left: 0;
     height: 100vh;
-    border-start-end-radius: 40px;
-    border-end-end-radius: 40px;
+    border-start-end-radius: 20px;
+    border-end-end-radius: 20px;
     & .app-menu {
       margin-top: 2rem;
       padding: 0 25px;
@@ -135,6 +149,16 @@
       & .p-breadcrumb {
         display: none;
       }
+    }
+  }
+}
+
+.layout-wrapper:not(.layout-sidebar-active) aside.desktop-menu:not(:hover) {
+  & .p-panelmenu .p-panelmenu-content .p-submenu-list {
+    padding: 0 !important;
+
+    & li {
+      margin: 5px 0 !important;
     }
   }
 }

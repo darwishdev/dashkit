@@ -1,21 +1,9 @@
 import { markRaw } from 'vue';
 import AppDialogContent from '@/components/AppDialogContent.vue';
 import AppDialogFooter from '@/components/AppDialogFooter.vue';
-import type { DeleteRestoreHandler } from '@/types/types'
-
-export interface deleteRestoreDialogParms {
-    onConfirmed?: Function,
-    deleteRestoreHandler: DeleteRestoreHandler<any>,
-    recordId: number,
-    useDialog: Function,
-
-    config?: {
-        width?: string
-        breakpoints?: Record<string, string>
-    }
-}
-export default function useCreateDialog(params: deleteRestoreDialogParms) {
-    const dialog = params.useDialog();
+import type { DialogDeleteRestoreParms } from '@/types/types'
+import { useDialog } from 'primevue/usedialog'
+export default function useDialogDeleteRestore(params: DialogDeleteRestoreParms) {
     const defaultWidth = "25vw"
     const defaultBreakPoint = {
         '960px': '75vw',
@@ -23,6 +11,7 @@ export default function useCreateDialog(params: deleteRestoreDialogParms) {
     }
 
     function openDialog() {
+        const dialog = useDialog()
         const width = params.config && params.config.width ? params.config.width : defaultWidth
         const breakpoints = params.config && params.config.breakpoints ? params.config.breakpoints : defaultBreakPoint
         dialog.open(AppDialogContent, {

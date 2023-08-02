@@ -1,10 +1,9 @@
 <script  lang="ts">
-import useDeleteRestoreDialog from '@/composables/useDeleteRestoreDialog';
-import type { deleteRestoreDialogParms } from '@/composables/useDeleteRestoreDialog';
-import { useDialogUpdate } from '@/composables/composables';
-import type { dialogUpdateParms } from '@/composables/useDialogUpdate';
 
-import type { FormUpdateParams, DeleteRestoreHandler } from '@/types/types'
+import { useDialogUpdate, useDialogDeleteRestore } from '@/composables/composables';
+
+
+import type { FormUpdateParams, DialogDeleteRestoreParms, DialogUpdateParms, DeleteRestoreHandler } from '@/types/types'
 import { inject } from 'vue'
 import type { PropType } from 'vue'
 import { defineComponent } from 'vue'
@@ -12,7 +11,6 @@ import { useRouter } from 'vue-router'
 import type { I18n } from 'vue-i18n/dist/vue-i18n.js';
 
 import { useToast } from 'primevue/usetoast';
-import { useDialog } from 'primevue/usedialog';
 import { handleSuccessToast, getRouteVariation, Can } from '@/utils/helpers';
 
 export default defineComponent({
@@ -42,24 +40,22 @@ export default defineComponent({
         let deleteRestoreDialog = undefined as any
         let updateDialog = undefined as any
         if (props.deleteRestoreHandler) {
-            const deleteRestoreDialogParm: deleteRestoreDialogParms = {
+            const deleteRestoreDialogParm: DialogDeleteRestoreParms = {
                 onConfirmed: () => {
                     emit('onDeleteRestore', props.recordId)
                     handleSuccessToast(props.deleteRestoreHandler!.toastHandler, toast, t, 'deleted')
 
                 },
                 deleteRestoreHandler: props.deleteRestoreHandler,
-                useDialog,
                 recordId: props.recordId,
 
             }
-            deleteRestoreDialog = useDeleteRestoreDialog(deleteRestoreDialogParm);
+            deleteRestoreDialog = useDialogDeleteRestore(deleteRestoreDialogParm);
         }
         if (props.updateForm) {
-            const updateDialogParms: dialogUpdateParms = {
+            const updateDialogParms: DialogUpdateParms = {
                 onConfirmed: () => emit('onShowUpdateDialog', props.recordId),
                 form: props.updateForm,
-                useDialog,
 
             }
             updateDialog = useDialogUpdate(updateDialogParms);
@@ -109,3 +105,4 @@ export default defineComponent({
     </div>
 </template>
 
+@/composables/useDialogDeleteRestore

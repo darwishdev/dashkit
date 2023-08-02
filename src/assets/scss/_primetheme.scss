@@ -53,7 +53,7 @@
   font-style: normal;
   font-weight: 400;
   src: local("Segoe UI Regular"),
-    url("https://static.exploremelon.com/dashkit/fonts/SegoeUI.woff")
+    url("/fonts/SegoeUI.woff")
       format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* lato-regular - latin-ext_latin */
@@ -62,7 +62,7 @@
   font-style: normal;
   font-weight: 800;
   src: local("Segoe UI Bold"),
-    url("https://static.exploremelon.com/dashkit/fonts/Segoe_UI_Bold.woff")
+    url("/fonts/Segoe_UI_Bold.woff")
       format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* lato-700 - latin-ext_latin */
@@ -71,7 +71,7 @@
   font-style: normal;
   font-weight: 700;
   src: local("Melon"),
-    url("https://static.exploremelon.com/dashkit/fonts/fonts/MelonEnglish.ttf")
+    url("/fonts/MelonEnglish.ttf")
       format("ttf"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* lato-300 - latin-ext_latin */
@@ -80,7 +80,7 @@
   font-style: normal;
   font-weight: 300;
   src: local("Cairo Regular"),
-    url("https://static.exploremelon.com/dashkit/fonts/fonts/Cairo-Regular.ttf")
+    url("/fonts/Cairo-Regular.ttf")
       format("ttf"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* lato-regular - latin-ext_latin */
@@ -89,7 +89,7 @@
   font-style: normal;
   font-weight: 700;
   src: local("Cairo Bold"),
-    url("https://static.exploremelon.com/dashkit/fonts/fonts/Cairo-Bold.ttf")
+    url("/fonts/Cairo-Bold.ttf")
       format("ttf"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* lato-700 - latin-ext_latin */
@@ -98,7 +98,7 @@
   font-style: normal;
   font-weight: 800;
   src: local("Melon"),
-    url("https://static.exploremelon.com/dashkit/fonts/fonts/Cairo-ExtraBold.ttf")
+    url("/fonts/Cairo-ExtraBold.ttf")
       format("ttf"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 * {

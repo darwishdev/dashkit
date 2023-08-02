@@ -33,8 +33,10 @@
     "src/**/*.ts",
     "src/buildConfig",
     "src/**/*.ts",
+    "src/**/**.ts",
     "src/**/*.d.ts",
     "src/**/*.json",
+    "composables/composables.ts",
     "src/assets/*.svg",
     "src/**/*.tsx",
     "src/**/*.vue"

@@ -15,6 +15,31 @@ export interface ToastHandler {
     message?: String
 }
 
+export interface DialogUpdateParms {
+    onConfirmed?: Function,
+    form: FormUpdateParams,
+    config?: {
+        width?: string
+        breakpoints?: Record<string, string>
+    }
+}
+export interface DialogCreateParms {
+    onConfirmed?: Function,
+    form: FormCreateParams,
+    config?: {
+        width?: string
+        breakpoints?: Record<string, string>
+    }
+}
+export interface DialogDeleteRestoreParms {
+    onConfirmed?: Function,
+    deleteRestoreHandler: DeleteRestoreHandler<any>,
+    recordId: number,
+    config?: {
+        width?: string
+        breakpoints?: Record<string, string>
+    }
+}
 export interface FilterParser {
     getDisplayValue(inputNode: FormKitNode): string;
 }

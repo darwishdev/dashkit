@@ -1,21 +1,9 @@
 
-// import type { DeleteRestoreHandler } from '@/types/types'
-
-
-import { FormUpdateParams } from '@/types/types';
+import { DialogUpdateParms } from '@/types/types';
 import { h, resolveComponent, defineComponent } from 'vue'
-
-export interface dialogUpdateParms {
-    onConfirmed?: Function,
-    useDialog: Function,
-    form: FormUpdateParams,
-    config?: {
-        width?: string
-        breakpoints?: Record<string, string>
-    }
-}
-export default function useDialogUpdate(params: dialogUpdateParms) {
-    const dialog = params.useDialog();
+import { useDialog } from 'primevue/usedialog'
+export default function useDialogUpdate(params: DialogUpdateParms) {
+    const dialog = useDialog()
     const defaultWidth = "65vw"
     const defaultBreakPoint = {
         '960px': '75vw',

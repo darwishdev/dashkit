@@ -1,17 +1,10 @@
-import { FormCreateParams } from '@/types/types';
+import { DialogCreateParms } from '@/types/types';
 import { h, resolveComponent, defineComponent } from 'vue'
+import { useDialog } from 'primevue/usedialog'
 
-export interface dialogCreateParms {
-    onConfirmed?: Function,
-    useDialog: Function,
-    form: FormCreateParams,
-    config?: {
-        width?: string
-        breakpoints?: Record<string, string>
-    }
-}
-export default function useDialogCreate(params: dialogCreateParms) {
-    const dialog = params.useDialog();
+export default function useDialogCreate(params: DialogCreateParms) {
+    const dialog = useDialog()
+
     const defaultWidth = "65vw"
     const defaultBreakPoint = {
         '960px': '75vw',
