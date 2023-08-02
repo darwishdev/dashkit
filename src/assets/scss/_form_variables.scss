@@ -1,0 +1,18 @@
+:root {
+  --fk-color-input: var(--color-white);
+  --fk-margin-help: 15px 0;
+  --fk-color-help: var(--color-white);
+  --fk-bg-input: rgba(108, 117, 125, 0.2);
+  --fk-padding-label: 15px 0;
+  --fk-max-width-input: 100%;
+  --fk-font-size-message: 16px;
+  --fk-font-size-label: 16px;
+  --fk-color-tag: #256029;
+  --fk-day-bg: var(--color-card);
+  --fk-day-bg-hover : rgba(23,255,255,1)
+  --fk-color-primary: transparent;
+  --fk-color-tag-background: #c8e6c9;
+  --fk-day-bg-selected:var(--color-primary);
+  --fk-dropdown-active-bg:var(--color-primary);
+  --fk-border-width: 0; 
+}

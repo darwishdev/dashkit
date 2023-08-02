@@ -1,0 +1,142 @@
+.p-breadcrumb-list .p-menuitem-link.router-link-active {
+  background-color: transparent !important;
+}
+
+.p-sidebar {
+  background: var(--color-background) !important;
+  border: none;
+  width: 17rem;
+  border-start-end-radius: 30px;
+  border-end-end-radius: 30px;
+  & .p-sidebar-header {
+    justify-content: center;
+    margin-bottom: 20px;
+    padding: 0.75rem 1.25rem !important;
+    & button {
+      display: none;
+    }
+  }
+}
+
+.p-toast {
+  top: 50px !important;
+  & .p-toast-message {
+    border-radius: 32px;
+    position: relative;
+    border: none !important;
+    &::before {
+      position: absolute;
+      top: -25px;
+      left: 30px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+    }
+    &::after {
+      position: absolute;
+      top: -38px;
+      left: 30px;
+      width: 69px;
+      height: 69px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      fill: #fff;
+      z-index: 1;
+    }
+    & .p-toast-message-content {
+      padding: 0 !important;
+      & .toast-inner {
+        overflow: hidden;
+        padding: 1rem;
+        color: #fff;
+        &::after {
+          position: absolute;
+          bottom: -25px;
+          left: -35px;
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+    & .p-toast-icon-close {
+      color: #fff !important;
+      position: absolute;
+      top: 10px;
+      right: 15px;
+    }
+
+    &.p-toast-message-error {
+      background-color: var(--color-error) !important;
+
+      &::before {
+        content: url("https://static.exploremelon.com/dashkit/msg-error.svg");
+      }
+
+      &::after {
+        content: url("https://static.exploremelon.com/dashkit/close.svg");
+      }
+
+      & .toast-inner::after {
+        content: url("/logo-error.svg");
+      }
+    }
+    &.p-toast-message-success {
+      background-color: var(--color-success) !important;
+      &::before {
+        content: url("https://static.exploremelon.com/dashkit/msg-success.svg");
+      }
+      &::after {
+        content: url("https://static.exploremelon.com/dashkit/check.svg");
+      }
+      & .toast-inner::after {
+        content: url("https://static.exploremelon.com/dashkit/logo-success.svg");
+      }
+    }
+  }
+}
+[data-type="submit"] .formkit-input,
+.app-btn {
+  width: 100%;
+  background-color: var(--color-primary);
+
+  &:hover {
+    background-color: var(--color-card);
+    transition: background-color 0.5s;
+  }
+}
+.app-btn {
+  width: 30%;
+  color: #fff;
+  text-align: center;
+  min-height: 40px;
+  align-items: center;
+  display: flex;
+  margin-top: 20px;
+  justify-content: center;
+  border-radius: 6px;
+}
+
+.login-wrapper .title {
+  display: none;
+}
+
+.p-menu.p-menu-overlay {
+  background: var(--color-background);
+}
+
+.formkit-file-item {
+  overflow: hidden;
+}
+
+.p-dialog {
+  background: var(--color-dialog) !important;
+}
