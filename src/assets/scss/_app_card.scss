@@ -1,0 +1,34 @@
+.app-card {
+  // app card
+  & .restore-icon {
+    display: none;
+  }
+
+  & .start {
+    background-color: var(--color-primary);
+    border-start-start-radius: var(--border-radius) !important;
+    border-end-start-radius: var(--border-radius) !important;
+  }
+  & .end a:not(.icon-btn) {
+    max-width: 300px !important;
+    color: #fff !important;
+    font-size: 30px !important;
+    font-weight: bold !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+  }
+  &.app-card-restore {
+    & .restore-icon {
+      display: block;
+    }
+
+    & .list-icon {
+      display: none;
+    }
+
+    & .start {
+      background-color: var(--color-deleted);
+    }
+  }
+}

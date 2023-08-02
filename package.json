@@ -1,12 +1,52 @@
 {
   "name": "dash-kit",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "test": "vitest --watch --coverage",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "dashboard",
+    "vue",
+    "vite",
+    "formkit",
+    "primevue",
+    "npm",
+    "npm-package"
+  ],
+  "bugs": {
+    "url": "https://github.com/darwishdev/dashkit/issues"
+  },
+  "homepage": "https://dashkit.exploremelon.com",
+  "module": "dist/DashKit.js",
+  "author": "Darwishdev",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/darwishdev/dash-kit"
+  },
+  "types": "dist/DashKit.d.ts",
+  "exports": {
+    ".": "./dist/DashKit.js",
+    "./types": "./dist/types/types.d.ts",
+    "./style": "./dist/style.css",
+    "./views": "./dist/views/views.js",
+    "./views.d.ts": "./dist/views/views.d.ts",
+    "./base": "./dist/components/base.js",
+    "./base.d.ts": "./dist/components/base.d.ts",
+    "./helpers": "./dist/utils/helpers.js",
+    "./helpers.d.ts": "./dist/utils/helpers.d.ts",
+    "./forms": "./dist/forms/forms.js",
+    "./forms.d.ts": "./dist/forms/forms.d.ts",
+    "./composables": "./dist/composables/composables.js",
+    "./composables.d.ts": "./dist/composables/composables.d.ts"
   },
   "peerDependencies": {
     "@formkit/icons": "latest",
@@ -25,10 +65,13 @@
   "devDependencies": {
     "@types/node": "^20.4.5",
     "@vitejs/plugin-vue": "^4.2.3",
+    "@vitest/coverage-v8": "^0.33.0",
+    "sass": "^1.64.2",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
     "vite-plugin-dts": "^3.2.0",
     "vite-svg-loader": "^4.0.0",
+    "vitest": "^0.33.0",
     "vue-tsc": "^1.8.5"
   }
 }

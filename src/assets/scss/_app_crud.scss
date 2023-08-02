@@ -1,0 +1,23 @@
+.app-crud {
+  // app card
+  & .crud-filter {
+    flex: 1;
+    // background: var(--color-card);
+    border-radius: 6px;
+    margin-left: 20px;
+    .filter {
+      margin-top: 10px;
+      background-color: var(--color-card);
+    }
+  }
+  & .p-accordion-header {
+    border-radius: 6px 6px 0 0;
+    background: var(--color-card);
+  }
+}
+// .active-filter .filter {
+//   background-color: var(--color-card);
+// }
+.justiy-content-between {
+  justify-content: space-between;
+}

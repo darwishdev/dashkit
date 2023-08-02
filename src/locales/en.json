@@ -1,0 +1,20 @@
+{
+    "roles_list": "roles list",
+    "dashboard": "dashboard",
+    "show_filters": "click here to filter the data",
+    "clear_filters": "click here to clear all the filters",
+    "wrong_password": "this password is incorrect",
+    "pass_loginApiCall": "please provice loginApiCall to be able to use login functionality from dash-kit",
+    "logout": "logout",
+    "user_name_invalid": "Please enter a valid username",
+    "user_not_found": "This user dosn't have account",
+    "unknown_error": "unexpected error occured",
+    "stayOnSamePageAfterSuccess": "stay here after success",
+    "submit": "Submit",
+    "copyrighs": "All copyrighs reserved to Melon",
+    "userNameLabel": "Username",
+    "userNamePlaceholder": "Enter your email or phone",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter you password",
+    "profile": "profile"
+}
