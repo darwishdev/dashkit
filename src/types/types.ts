@@ -17,6 +17,7 @@ export interface ToastHandler {
 
 export interface DialogUpdateParms {
     onConfirmed?: Function,
+    dialog:any,
     form: FormUpdateParams,
     config?: {
         width?: string
@@ -26,6 +27,7 @@ export interface DialogUpdateParms {
 export interface DialogCreateParms {
     onConfirmed?: Function,
     form: FormCreateParams,
+    dialog:any,
     config?: {
         width?: string
         breakpoints?: Record<string, string>

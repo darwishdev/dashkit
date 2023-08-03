@@ -1,9 +1,7 @@
 
 import { DialogUpdateParms } from '@/types/types';
 import { h, resolveComponent, defineComponent } from 'vue'
-import { useDialog } from 'primevue/usedialog'
 export default function useDialogUpdate(params: DialogUpdateParms) {
-    const dialog = useDialog()
     const defaultWidth = "65vw"
     const defaultBreakPoint = {
         '960px': '75vw',
@@ -27,7 +25,7 @@ export default function useDialogUpdate(params: DialogUpdateParms) {
         const breakpoints = params.config && params.config.breakpoints ? params.config.breakpoints : defaultBreakPoint
 
         console.log("diuallsl")
-        dialog.open(UpdateFormComp, {
+        params.dialog.open(UpdateFormComp, {
             props: {
                 dismissableMask: true,
                 header: "Confirm",
