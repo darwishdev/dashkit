@@ -123,11 +123,11 @@ function toggleSelectAll(value) {
     <div class="my-3 permissions_input" v-else>
         <Toolbar>
             <template #start>
-                <h2>Permissions</h2>
+                <h2>{{$t('permissions')}}</h2>
             </template>
 
             <template #end>
-                <InputSwitch v-model="checkAllModel" @update:modelValue="toggleSelectAll" inputId="select_all"
+                <form-kit type="toggle" name="permissionsSelectAll" v-model="checkAllModel" @update:modelValue="toggleSelectAll" inputId="select_all"
                     class="p-invalid" />
                 <label class="mx-4" for="select_all">select all</label>
                 <span class="p-input-icon-left">

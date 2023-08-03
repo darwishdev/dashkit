@@ -12,6 +12,7 @@ import type { I18n } from 'vue-i18n/dist/vue-i18n.js';
 
 import { useToast } from 'primevue/usetoast';
 import { handleSuccessToast, getRouteVariation, Can } from '@/utils/helpers';
+import { useDialog } from 'primevue/usedialog';
 
 export default defineComponent({
     props: {
@@ -34,6 +35,7 @@ export default defineComponent({
     },
     setup(props, { emit }) {
         const { push, currentRoute } = useRouter()
+        const dialog = useDialog()
         const toast = useToast()
         const i18n = inject('i18n') as I18n
         const { t } = i18n.global
@@ -46,6 +48,7 @@ export default defineComponent({
                     handleSuccessToast(props.deleteRestoreHandler!.toastHandler, toast, t, 'deleted')
 
                 },
+                dialog,
                 deleteRestoreHandler: props.deleteRestoreHandler,
                 recordId: props.recordId,
 

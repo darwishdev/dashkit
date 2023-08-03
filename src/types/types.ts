@@ -35,6 +35,7 @@ export interface DialogDeleteRestoreParms {
     onConfirmed?: Function,
     deleteRestoreHandler: DeleteRestoreHandler<any>,
     recordId: number,
+    dialog:any,
     config?: {
         width?: string
         breakpoints?: Record<string, string>

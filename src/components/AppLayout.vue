@@ -8,7 +8,6 @@ import Toolbar from 'primevue/toolbar';
 import Breadcrumb from 'primevue/breadcrumb';
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import Toast from 'primevue/toast';
 import DynamicDialog from 'primevue/dynamicdialog';
 // import {} from "@/components"
 import { AppMenu } from "@/components/base"
@@ -25,8 +24,7 @@ export default defineComponent({
         Menu,
         Toolbar,
         Avatar,
-        Breadcrumb,
-        Toast
+        Breadcrumb
     },
     beforeCreate() {
         if (localStorage.getItem('asideOpened') == 'true') {
@@ -81,17 +79,7 @@ export default defineComponent({
             </KeepAlive>
 
         </Sidebar>
-        <toast>
-            <template #message="slotProps">
-                <div class="flex toast-inner flex-column align-items-center" style="flex: 1">
-                    <div class="text-center">
-                        <h1 class="font-bold text-4xl ">{{ slotProps.message.summary }}</h1>
-                        <p class="my-1">{{ slotProps.message.detail }}</p>
-                    </div>
-
-                </div>
-            </template>
-        </toast>
+        <app-toast/>
         <dynamic-dialog ref="mainDialog" />
     </div>
 </template>

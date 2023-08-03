@@ -1,7 +1,7 @@
 :root {
   --color-background: linear-gradient(180deg, #2e323f 0%, #0a061a 100%);
   --color-dropdown: #2e323f;
-  --color-primary: #c94b63;
+  --color-primary: var(--color-primary);
   --menu-width-opened: 19rem;
   --primary-color: var(--color-primary);
   --text-color: var(--color-text);
