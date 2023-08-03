@@ -151,3 +151,24 @@
 .p-panelmenu .p-panelmenu-content {
   background: var(--color-card);
 }
+
+.p-panelmenu .p-panelmenu-header .p-panelmenu-header-content .p-panelmenu-header-action{
+  padding: 15px 10px;
+}
+
+
+.p-panelmenu-header.p-highlight {
+  background-color: var(--color-card);
+  border-radius: 6px 6px 0 0;
+  padding: 5px;
+}
+
+.p-menuitem{
+  margin: 10px;
+}
+.p-submenu-icon {
+  order: 2;
+}
+.p-menuitem-text {
+  flex: 1;
+}

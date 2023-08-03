@@ -64,6 +64,7 @@
 
   & aside.desktop-menu {
     position: fixed;
+    overflow: scroll;
     border-right: 1px solid var(--menu-border-color);
     width: var(--menu-width);
     background: var(--color-background);

@@ -5,6 +5,7 @@ import FormFactory from '@/utils/form/FormFactory'
 import { useToast } from 'primevue/usetoast';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
+// import Toast from 'primevue/toast';
 import {
     handleSuccessToast,
     handleError,
@@ -13,6 +14,9 @@ import {
 
 
 export default defineComponent({
+    // components:{
+    //     Toast
+    // },
     props: {
         sections: {
             type: Array as PropType<Array<FormSeciton>>,
@@ -51,7 +55,9 @@ export default defineComponent({
                         handleSuccessToast(props.toastHandler, toast, t, props.options.title)
                         if (!req.isBulkCreate) {
                             const destinationRoute = handler.redirectRoute ? handler.redirectRoute : getRouteVariation(currentRoute.value.name as string, "list")
-                            push({ name: destinationRoute })
+                            if(destinationRoute != ""){
+                                push({ name: destinationRoute })
+                            }
                             resolve(null)
                             return
                         }
@@ -59,6 +65,7 @@ export default defineComponent({
                         node.input({ isBulkCreate: true });
                         resolve(null)
                     }).catch((error: any) => {
+                        console.log('error' , error)
                         handleError(error, node, toast, handler.errorHandler, t)
                         resolve(null)
                     })
@@ -79,4 +86,16 @@ export default defineComponent({
     <FormKit :id="id" type="form" @submit-invalid="log" :actions="false" @submit="submitHandler">
         <FormKitSchema :schema="formSchema" />
     </FormKit>
+
+    <!-- <toast>
+            <template #message="slotProps">
+                <div class="flex toast-inner flex-column align-items-center" style="flex: 1">
+                    <div class="text-center">
+                        <h1 class="font-bold text-4xl ">{{ slotProps.message.summary }}</h1>
+                        <p class="my-1">{{ slotProps.message.detail }}</p>
+                    </div>
+
+                </div>
+            </template>
+        </toast> -->
 </template>

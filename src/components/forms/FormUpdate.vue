@@ -72,7 +72,9 @@ export default defineComponent({
                         handleSuccessToast(props.toastHandler, toast, t, props.options.title)
                         if (!req.isBulkCreate) {
                             const destinationRoute = handler.redirectRoute ? handler.redirectRoute : getRouteVariation(name as string, "list")
-                            push({ name: destinationRoute })
+                            if(destinationRoute != ""){
+                                push({ name: destinationRoute })
+                            }
                             resolve(null)
                             return
                         }
