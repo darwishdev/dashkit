@@ -59,7 +59,7 @@ export default defineComponent({
             const updateDialogParms: DialogUpdateParms = {
                 onConfirmed: () => emit('onShowUpdateDialog', props.recordId),
                 form: props.updateForm,
-
+                dialog,
             }
             updateDialog = useDialogUpdate(updateDialogParms);
         }
