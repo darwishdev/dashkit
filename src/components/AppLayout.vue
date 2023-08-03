@@ -57,7 +57,7 @@ export default defineComponent({
             <div class="desktop-menu-header">
                 <app-logo class="all-logo" />
                 <app-logo iconOnly class="icon-logo" />
-                <icon-btn id="sidebar-lock-icon" :icon="isMenuOpened ? 'lock' : 'lock-open'"
+                <app-icon-btn id="sidebar-lock-icon" :icon="isMenuOpened ? 'lock' : 'lock-open'"
                     @click.prevent="toggleDesktopMenu" />
             </div>
             <KeepAlive>

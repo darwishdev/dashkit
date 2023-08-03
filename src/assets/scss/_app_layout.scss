@@ -15,9 +15,6 @@
       display: flex !important;
     }
   }
-  .p-panelmenu .p-panelmenu-panel {
-    position: relative;
-  }
   & .logo-container {
     width: 100%;
   }
@@ -63,6 +60,7 @@
   }
 
   & aside.desktop-menu {
+    overflow: scroll;
     position: fixed;
     overflow: scroll;
     border-right: 1px solid var(--menu-border-color);

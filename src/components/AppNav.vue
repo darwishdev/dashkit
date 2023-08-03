@@ -62,7 +62,7 @@ export default defineComponent({
 <template>
     <Toolbar class="app-nav">
         <template #start>
-            <icon-btn icon="bars" class="sidebar-toggler" @click.prevent="toggleMobileSidebar" />
+            <app-icon-btn icon="bars" class="sidebar-toggler" @click.prevent="toggleMobileSidebar" />
             <app-logo />
 
             <Breadcrumb :home="breadCrumbHome" v-if="breadCrumbs" :model="breadCrumbs" />
@@ -70,8 +70,8 @@ export default defineComponent({
         <template #end>
             <slot name="end" />
 
-            <icon-btn v-if="!$slots['end']" id="locale-toggler" icon="globe" @click.prevent="toggleRtl" />
-            <icon-btn v-if="!$slots['end']" id="profile-toggler" icon="user" @click="toggleProfileMenu" />
+            <app-icon-btn v-if="!$slots['end']" id="locale-toggler" icon="globe" @click.prevent="toggleRtl" />
+            <app-icon-btn v-if="!$slots['end']" id="profile-toggler" icon="user" @click="toggleProfileMenu" />
             <Menu v-if="!$slots['end']" ref="profileMenu" id="overlay-menu" :popup="true">
                 <template #start>
                     <router-link :to="{ name: 'profile_view' }"
