@@ -93,11 +93,11 @@ export default defineComponent({
         </div>
         <div class="flex-grow-1 end flex align-items-center justify-content-center">
             <div class="absolute top-0 right-0 p-2">
-                <icon-btn v-if="showDeleteRestoreButton" class="list-icon" icon="trash" @click="deleteRestore" />
+                <app-icon-btn v-if="showDeleteRestoreButton" class="list-icon" icon="trash" @click="deleteRestore" />
                 <a v-if="showUpdateButton" class="icon-btn list-icon" @click.prevent="update">
                     <i class="pi pi-pencil text-white"></i>
                 </a>
-                <icon-btn v-if="showDeleteRestoreButton" class="restore-icon" icon="refresh" @click="deleteRestore" />
+                <app-icon-btn v-if="showDeleteRestoreButton" class="restore-icon" icon="refresh" @click="deleteRestore" />
             </div>
             <slot name="end"> </slot>
         </div>

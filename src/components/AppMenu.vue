@@ -18,11 +18,18 @@ export default defineComponent({
         }
     },
     mounted() {
-        this.setExpandedKeyByRoute()
+        if (this.$route.fullPath == '/') {
+            this.$router.push({ name: 'home_view' }).then(() => this.setExpandedKeyByRoute())
+        } else {
+            this.setExpandedKeyByRoute()
+
+        }
+
     },
     setup(props) {
         let parsedPermissions = null
         const route = useRoute()
+        const expandedKeys = ref<Record<string, boolean>>();
         const { t } = useI18n()
         if (localStorage.getItem('sideBar') != null) {
             const decoded = JSON.parse(atob(localStorage.getItem('sideBar') as string))
@@ -46,9 +53,6 @@ export default defineComponent({
         const model = parsedPermissions == null || isModelPassed ? props.model : parsedPermissions
 
 
-        // Data property to hold the expanded keys
-        const expandedKeys = ref({});
-
 
 
         const findMenuItemByRoute = (items: MenuItem[], path: string) => {
@@ -64,16 +68,22 @@ export default defineComponent({
             }
             return ""; // Return an empty array if not found
         };
+        const createObject = (input: string): void => {
+            const keys = input.split('.');
+            const output: Record<string, boolean> = {};
+
+            for (let i = 1; i < keys.length; i++) {
+                const slicedKeys = keys.slice(0, i);
+                output[slicedKeys.join('.')] = true;
+            }
+
+            expandedKeys.value = output
+        }
         // Get the first level of the current route path and open the corresponding menu item
         const setExpandedKeyByRoute = () => {
             const currentPath = route.path;
             const item = findMenuItemByRoute(translatedModel, currentPath);
-
-            const itemPosiotion = parseInt(item.split('.')[0])
-            expandedKeys.value[item] = true
-            expandedKeys.value[itemPosiotion] = true
-            // expandedKeys.value.push(true);
-            console.log(itemPosiotion)
+            createObject(item)
         };
         const translateMenuItems = (items: MenuItem[]) => {
             return items.map((item) => {

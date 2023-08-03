@@ -13,7 +13,7 @@ const props = defineProps({
 })
 </script>
 <template>
-    <router-link to="/dashboard" class="flex align-items-center logo-container" v-if="!props.disabled">
+    <router-link :to="{ name: 'home_view' }" class="flex align-items-center logo-container" v-if="!props.disabled">
         <logo-icon v-if="iconOnly" />
         <logo v-else />
     </router-link>

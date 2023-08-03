@@ -151,3 +151,9 @@
 .p-panelmenu .p-panelmenu-content {
   background: var(--color-card);
 }
+
+.p-panelmenu-header.p-highlight {
+  background-color: var(--color-card);
+  border-radius: 6px 6px 0 0;
+  padding-top: 10px;
+}
