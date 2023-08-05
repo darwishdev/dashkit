@@ -34,7 +34,7 @@ export default defineComponent({
 
         const breadCrumbHome = {
             icon: 'pi pi-home',
-            to: '/',
+            to: { name: "home_view" },
         }
         const toggleRtl = () => {
             isRtl.value = !isRtl.value;
