@@ -92,11 +92,7 @@ export default defineComponent({
                     item.items = translateMenuItems(item.items);
                     // Recursive call
                 }
-                if (item.items || item.to) {
-                    return item
-
-                }
-                return {}
+                return item
             });
         }
 

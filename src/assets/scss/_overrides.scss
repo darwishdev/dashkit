@@ -156,7 +156,7 @@
   .p-panelmenu-header
   .p-panelmenu-header-content
   .p-panelmenu-header-action {
-  padding: 15px 10px;
+  padding: 8px 10px;
 }
 
 .p-panelmenu-header.p-highlight {
@@ -178,4 +178,12 @@
 .p-accordion-header,
 .p-panel .p-panel-header {
   background-color: var(--color-card);
+}
+
+.p-panelmenu .p-panelmenu-header .material-symbols-outlined {
+  margin-inline-end: 20px;
+}
+
+.p-panelmenu .p-menuitem .material-symbols-outlined {
+  margin-inline-end: 15px;
 }
