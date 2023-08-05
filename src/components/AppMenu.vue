@@ -89,9 +89,14 @@ export default defineComponent({
             return items.map((item) => {
                 item.label = t((item.label as string).toLowerCase());
                 if (item.items) {
-                    item.items = translateMenuItems(item.items); // Recursive call
+                    item.items = translateMenuItems(item.items);
+                    // Recursive call
                 }
-                return item;
+                if (item.items || item.to) {
+                    return item
+
+                }
+                return {}
             });
         }
 
@@ -105,6 +110,13 @@ export default defineComponent({
 
 <template>
     <div class="app-menu">
-        <PanelMenu :model="translatedModel" v-model:expandedKeys="expandedKeys" />
+        <PanelMenu :model="translatedModel" v-model:expandedKeys="expandedKeys">
+            <template #headericon="{ item }">
+                <span class="material-icons">{{ item.icon }}</span>
+            </template>
+            <template #itemicon="{ item }">
+                <span class="material-icons">{{ item.icon }}</span>
+            </template>
+        </PanelMenu>
     </div>
 </template>

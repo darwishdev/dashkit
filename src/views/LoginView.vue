@@ -94,7 +94,7 @@ export default defineComponent({
         @media (min-width: 1000px) {
             width: 500px;
             height: 100vh;
-            background: "/login-bg.webp";
+            background: var(--image-login);
         }
     }
 
