@@ -108,10 +108,10 @@ export default defineComponent({
     <div class="app-menu">
         <PanelMenu :model="translatedModel" v-model:expandedKeys="expandedKeys">
             <template #headericon="{ item }">
-                <span class="material-icons">{{ item.icon }}</span>
+                <span class="material-symbols-outlined">{{ item.icon }}</span>
             </template>
             <template #itemicon="{ item }">
-                <span class="material-icons">{{ item.icon }}</span>
+                <span class="material-symbols-outlined">{{ item.icon }}</span>
             </template>
         </PanelMenu>
     </div>
