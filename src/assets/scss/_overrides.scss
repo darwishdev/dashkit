@@ -187,3 +187,20 @@
 .p-panelmenu .p-menuitem .material-symbols-outlined {
   margin-inline-end: 15px;
 }
+
+.layout-wrapper .desktop-menu:hover .desktop-menu-header {
+  // display: none !important;
+  & .icon-logo {
+    display: none !important;
+  }
+  & .all-logo {
+    display: flex !important;
+  }
+}
+.desktop-menu-header .icon-logo {
+  min-width: 60px;
+
+  & svg {
+    max-width: 60px;
+  }
+}
