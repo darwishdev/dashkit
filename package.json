@@ -1,6 +1,6 @@
 {
-  "name": "dash-kit",
-  "private": true,
+  "name": "vuedashkit",
+  "private": false,
   "version": "0.1.0",
   "type": "module",
   "scripts": {

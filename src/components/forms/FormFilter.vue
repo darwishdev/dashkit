@@ -1,10 +1,9 @@
 <script lang="ts">
 import { defineComponent, ref, PropType } from 'vue'
-import { FormKitSchemaNode } from '@formkit/core'
 import FormFactory from '@/utils/form/FormFactory'
 import { debounce } from 'lodash'
 import { getInputParser } from '@/utils/form/filter'
-import { getNode } from '@formkit/core'
+import { FormKitSchemaNode } from '@formkit/core'
 import { FormFilterOptions } from '@/types/types'
 
 export default defineComponent({
@@ -31,7 +30,7 @@ export default defineComponent({
         },
     },
     setup(props, { emit }) {
-
+        const filterForm = ref()
         // Function to initialize the form schema
         const formSchema = FormFactory.CreateFormFilter(props.inputs)
 
@@ -77,7 +76,7 @@ export default defineComponent({
         // Function to remove a specific filter
         const removeFilter = (filter: string) => {
             delete activeFilters.value[filter]
-            const node = getNode('filter-form')
+            const node = filterForm.value.node
             if (node?._value) {
                 node._value[filter] = undefined
             }
@@ -87,7 +86,7 @@ export default defineComponent({
 
         // Function to clear all filters
         const clearAllFilters = () => {
-            const node = getNode('filter-form')
+            const node = filterForm.value.node
             if (props.modelDisplay) {
                 emit('update:modelDisplay', {})
             }
@@ -119,6 +118,7 @@ export default defineComponent({
             updateFormValue,
             removeFilter,
             clearAllFilters,
+            filterForm,
             inputs: props.inputs,
             options: props.options,
             modelValue: props.modelValue,
@@ -130,7 +130,8 @@ export default defineComponent({
 <template>
     <div class="grid align-items-center w-full">
         <div :class="{ 'col-11': options.showClearFilters, 'col-12': !options.showClearFilters }">
-            <FormKit id="filter-form" :value="modelValue" @input="updateFormValue" type="form" :actions="false">
+            <FormKit id="filter-form" ref="filterForm" :value="modelValue" @input="updateFormValue" type="form"
+                :actions="false">
                 <FormKitSchema :schema="formSchema" />
             </FormKit>
 

@@ -152,10 +152,12 @@
   background: var(--color-card);
 }
 
-.p-panelmenu .p-panelmenu-header .p-panelmenu-header-content .p-panelmenu-header-action{
+.p-panelmenu
+  .p-panelmenu-header
+  .p-panelmenu-header-content
+  .p-panelmenu-header-action {
   padding: 15px 10px;
 }
-
 
 .p-panelmenu-header.p-highlight {
   background-color: var(--color-card);
@@ -163,7 +165,7 @@
   padding: 5px;
 }
 
-.p-menuitem{
+.p-menuitem {
   margin: 10px;
 }
 .p-submenu-icon {
@@ -171,4 +173,9 @@
 }
 .p-menuitem-text {
   flex: 1;
+}
+
+.p-accordion-header,
+.p-panel .p-panel-header {
+  background-color: var(--color-card);
 }
