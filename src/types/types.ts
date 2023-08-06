@@ -17,7 +17,7 @@ export interface ToastHandler {
 
 export interface DialogUpdateParms {
     onConfirmed?: Function,
-    dialog:any,
+    dialog: any,
     form: FormUpdateParams,
     config?: {
         width?: string
@@ -27,7 +27,7 @@ export interface DialogUpdateParms {
 export interface DialogCreateParms {
     onConfirmed?: Function,
     form: FormCreateParams,
-    dialog:any,
+    dialog: any,
     config?: {
         width?: string
         breakpoints?: Record<string, string>
@@ -37,7 +37,7 @@ export interface DialogDeleteRestoreParms {
     onConfirmed?: Function,
     deleteRestoreHandler: DeleteRestoreHandler<any>,
     recordId: number,
-    dialog:any,
+    dialog: any,
     config?: {
         width?: string
         breakpoints?: Record<string, string>
@@ -49,7 +49,7 @@ export interface FilterParser {
 
 export interface FindHandler<Request, Response, TargetResponse> {
     findFunction: (req: Request) => Promise<Response>;
-    mapFunction?: (response: Request) => TargetResponse;
+    mapFunction?: (response: Response) => TargetResponse;
     requestPropertyName: string;
     requestValue?: number;
 }

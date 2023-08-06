@@ -50,20 +50,18 @@ export default defineComponent({
 
         const requestValue = props.findHandler.requestValue ? props.findHandler.requestValue : parseInt(params.id as string)
         req[props.findHandler.requestPropertyName] = requestValue
-        const { responseData, loading, error } = useDataFetcherFind<FindRequestType, FindResponseType>(props.findHandler.findFunction, req);
+        const { responseData, loading, error } = useDataFetcherFind<FindRequestType, FindResponseType>(props.findHandler.findFunction, req, props.findHandler.mapFunction);
+
         const submitHandler = async (req: any, node: any) => {
             const handler = props.submitHandler
             if (handler.mapFunction) {
-                req = handler.mapFunction(req)                
+                req = handler.mapFunction(req)
             }
             if (handler.requestPropertyName) {
                 req[handler.requestPropertyName] = requestValue
             } else {
                 req[props.findHandler.requestPropertyName] = requestValue
             }
-
-            console.log('req', req)
-            console.log('requestValue', requestValue)
             await new Promise((resolve) => {
                 handler.submit(req)
                     .then(async (res: any) => {
@@ -72,7 +70,7 @@ export default defineComponent({
                         handleSuccessToast(props.toastHandler, toast, t, props.options.title)
                         if (!req.isBulkCreate) {
                             const destinationRoute = handler.redirectRoute ? handler.redirectRoute : getRouteVariation(name as string, "list")
-                            if(destinationRoute != ""){
+                            if (destinationRoute != "") {
                                 push({ name: destinationRoute })
                             }
                             resolve(null)
