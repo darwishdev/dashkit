@@ -56,6 +56,7 @@ export default defineComponent({
             deleteRestoreDialog = useDialogDeleteRestore(deleteRestoreDialogParm);
         }
         if (props.updateForm) {
+            props.updateForm.findHandler.requestValue = props.recordId
             const updateDialogParms: DialogUpdateParms = {
                 onConfirmed: () => emit('onShowUpdateDialog', props.recordId),
                 form: props.updateForm,
@@ -95,7 +96,7 @@ export default defineComponent({
             <slot name="start"></slot>
         </div>
         <div class="flex-grow-1 end flex align-items-center justify-content-center">
-            <div class="absolute top-0 right-0 p-2">
+            <div class="absolute z-5 top-0 right-0 p-2">
                 <app-icon-btn v-if="showDeleteRestoreButton" class="list-icon" icon="trash" @click="deleteRestore" />
                 <a v-if="showUpdateButton" class="icon-btn list-icon" @click.prevent="update">
                     <i class="pi pi-pencil text-white"></i>
