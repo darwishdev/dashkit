@@ -79,7 +79,7 @@ export default defineComponent({
             </KeepAlive>
 
         </Sidebar>
-        <app-toast/>
-        <dynamic-dialog ref="mainDialog" />
+        <app-toast />
+        <dynamic-dialog />
     </div>
 </template>

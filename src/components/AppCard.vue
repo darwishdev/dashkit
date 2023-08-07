@@ -46,7 +46,6 @@ export default defineComponent({
                 onConfirmed: () => {
                     emit('onDeleteRestore', props.recordId)
                     handleSuccessToast(props.deleteRestoreHandler!.toastHandler, toast, t, 'deleted')
-
                 },
                 dialog,
                 deleteRestoreHandler: props.deleteRestoreHandler,
@@ -55,18 +54,20 @@ export default defineComponent({
             }
             deleteRestoreDialog = useDialogDeleteRestore(deleteRestoreDialogParm);
         }
-        if (props.updateForm) {
-            props.updateForm.findHandler.requestValue = props.recordId
-            const updateDialogParms: DialogUpdateParms = {
-                onConfirmed: () => emit('onShowUpdateDialog', props.recordId),
-                form: props.updateForm,
-                dialog,
-            }
-            updateDialog = useDialogUpdate(updateDialogParms);
-        }
+
         const update = () => {
+            if (props.updateForm && updateDialog == undefined) {
+                const updateDialogParms: DialogUpdateParms = {
+                    onConfirmed: () => emit('onShowUpdateDialog', props.recordId),
+                    form: props.updateForm,
+                    dialog,
+                }
+                updateDialog = useDialogUpdate(updateDialogParms);
+                updateDialog.openDialog(props.recordId)
+                return
+            }
             if (updateDialog != undefined) {
-                updateDialog.openDialog()
+                updateDialog.openDialog(props.recordId)
             } else {
                 const routeName = getRouteVariation(currentRoute.value.name as string, 'update');
                 push({ name: routeName, params: { id: props.recordId } })
@@ -108,5 +109,3 @@ export default defineComponent({
 
     </div>
 </template>
-
-@/composables/useDialogDeleteRestore

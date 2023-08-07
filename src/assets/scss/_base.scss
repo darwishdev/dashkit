@@ -6,13 +6,6 @@
   position: relative;
   font-weight: normal;
 }
-
-/* lato-700 - latin-ext_latin */
-@font-face {
-  font-family: "Segoe UI";
-  font-style: normal;
-  src: local("Segoe UI Bold"), url("/fonts/SegoeUI.woff") format("woff");
-}
 body {
   min-height: 100%;
   background: var(--color-background);

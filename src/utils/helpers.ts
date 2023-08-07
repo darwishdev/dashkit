@@ -5,8 +5,6 @@ import type { FormKitNode } from "@formkit/core"
 import { ToastServiceMethods } from 'primevue/toastservice'
 import { NavigationGuardNext, RouteLocationNormalized } from "vue-router"
 export const handleSuccessToast = (handler: ToastHandler | undefined, toast: ToastServiceMethods, t: Function, title: string): void => {
-
-    console.log("hnalder" , handler , toast)
     const defaultTitle = `${title}_success_toast_title`
     const defaultMessage = `${title}_success_toast_message`
     if (handler) {
@@ -39,12 +37,11 @@ export const convertArrayToObjectArray = (input: any[][]): Object => {
     return { rows }
 }
 export function getRouteVariation(currentRoute: string, variation: string): string {
-    console.log(currentRoute)
-    if(!currentRoute){
+    if (!currentRoute) {
         return ""
     }
     const routeParts = currentRoute.split('_');
-    if(!routeParts){
+    if (!routeParts) {
         return ""
     }
     // remvove last char "s" if the function is list by  routeParts[0].slice(0, -1) 

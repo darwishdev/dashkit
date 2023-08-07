@@ -80,6 +80,7 @@ export default defineComponent({
                         node.input({ isBulkCreate: true });
                         resolve(null)
                     }).catch((error: any) => {
+                        console.log('form update error', error)
                         handleError(error, node, toast, handler.errorHandler, t)
                         resolve(null)
                     })

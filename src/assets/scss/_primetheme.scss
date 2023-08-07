@@ -9,7 +9,7 @@
   --text-color-secondary: rgba(255, 255, 255, 0.6);
   --primary-color: var(--color-primary);
   --primary-color-text: #fff;
-  --font-family: "Segoe UI", Helvetica, sans-serif;
+  --font-family: "Montserrat Alternates", sans-serif;
   --surface-0: #1d1e27;
   --surface-50: #34343d;
   --surface-100: #4a4b52;
@@ -47,54 +47,12 @@
   color-scheme: dark;
 }
 
-/* lato-300 - latin-ext_latin */
-@font-face {
-  font-family: "Segoe UI";
-  font-style: normal;
-  font-weight: 400;
-  src: local("Segoe UI Regular"), url("/fonts/SegoeUI.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-/* lato-regular - latin-ext_latin */
-@font-face {
-  font-family: "Segoe UI";
-  font-style: normal;
-  font-weight: 800;
-  src: local("Segoe UI Bold"), url("/fonts/Segoe_UI_Bold.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-/* lato-700 - latin-ext_latin */
-@font-face {
-  font-family: "Melon";
-  font-style: normal;
-  font-weight: 700;
-  src: local("Melon"), url("/fonts/MelonEnglish.ttf") format("ttf"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-/* lato-300 - latin-ext_latin */
-@font-face {
-  font-family: "Cairo";
-  font-style: normal;
-  font-weight: 300;
-  src: local("Cairo Regular"), url("/fonts/Cairo-Regular.ttf") format("ttf"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-/* lato-regular - latin-ext_latin */
-@font-face {
-  font-family: "Cairo";
-  font-style: normal;
-  font-weight: 700;
-  src: local("Cairo Bold"), url("/fonts/Cairo-Bold.ttf") format("ttf"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-/* lato-700 - latin-ext_latin */
-@font-face {
-  font-family: "Cairo";
-  font-style: normal;
-  font-weight: 800;
-  src: local("Melon"), url("/fonts/Cairo-ExtraBold.ttf") format("ttf"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
 * {
   box-sizing: border-box;
 }
 
 .p-component {
-  font-family: Lato, Helvetica, sans-serif;
+  font-family: var(--font-family);
   font-size: 1rem;
   font-weight: normal;
 }
@@ -128,7 +86,7 @@
 
 .p-link {
   font-size: 1rem;
-  font-family: Lato, Helvetica, sans-serif;
+  font-family: var(--font-family);
   border-radius: 6px;
 }
 .p-link:focus {
@@ -311,7 +269,7 @@
   .p-autocomplete-multiple-container
   .p-autocomplete-input-token
   input {
-  font-family: Lato, Helvetica, sans-serif;
+  font-family: var(--font-family);
   font-size: 1rem;
   color: rgba(255, 255, 255, 0.87);
   padding: 0;
@@ -831,7 +789,7 @@
   padding: 0.25rem 0;
 }
 .p-chips .p-chips-multiple-container .p-chips-input-token input {
-  font-family: Lato, Helvetica, sans-serif;
+  font-family: var(--font-family);
   font-size: 1rem;
   color: rgba(255, 255, 255, 0.87);
   padding: 0;
@@ -1255,7 +1213,7 @@
 }
 
 .p-inputtext {
-  font-family: Lato, Helvetica, sans-serif;
+  font-family: var(--font-family);
   font-size: 1rem;
   color: rgba(255, 255, 255, 0.87);
   background: rgba(255, 255, 255, 0.05);
@@ -7145,7 +7103,7 @@
 }
 .p-terminal .p-terminal-input {
   font-size: 1rem;
-  font-family: Lato, Helvetica, sans-serif;
+  font-family: var(--font-family);
 }
 
 .rtl .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider:before {

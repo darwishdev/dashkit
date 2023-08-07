@@ -2,7 +2,7 @@ import { DialogCreateParms } from '@/types/types';
 import { h, resolveComponent, defineComponent } from 'vue'
 
 export default function useDialogCreate(params: DialogCreateParms) {
-    
+
     const defaultWidth = "65vw"
     const defaultBreakPoint = {
         '960px': '75vw',
@@ -23,8 +23,6 @@ export default function useDialogCreate(params: DialogCreateParms) {
     function openDialog() {
         const width = params.config && params.config.width ? params.config.width : defaultWidth
         const breakpoints = params.config && params.config.breakpoints ? params.config.breakpoints : defaultBreakPoint
-
-        console.log("diuallsl")
         params.dialog.open(UpdateFormComp, {
             props: {
                 dismissableMask: true,

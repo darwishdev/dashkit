@@ -55,7 +55,7 @@ export default defineComponent({
                         handleSuccessToast(props.toastHandler, toast, t, props.options.title)
                         if (!req.isBulkCreate) {
                             const destinationRoute = handler.redirectRoute ? handler.redirectRoute : getRouteVariation(currentRoute.value.name as string, "list")
-                            if(destinationRoute != ""){
+                            if (destinationRoute != "") {
                                 push({ name: destinationRoute })
                             }
                             resolve(null)
@@ -65,7 +65,7 @@ export default defineComponent({
                         node.input({ isBulkCreate: true });
                         resolve(null)
                     }).catch((error: any) => {
-                        console.log('error' , error)
+                        console.log('form create error', error)
                         handleError(error, node, toast, handler.errorHandler, t)
                         resolve(null)
                     })

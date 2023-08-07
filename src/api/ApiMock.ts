@@ -272,8 +272,7 @@ const apiClient: ApiClient = {
     },
     roleUpdate: async (_req: RoleUpdateRequest): Promise<RoleUpdateResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        // console.log("ipdate")
-        // throw new Error("error")
+
         return roleUpdateResponse;
     },
     roleUpdateWithErr: async (_req: RoleUpdateRequest): Promise<RoleUpdateResponse> => {
