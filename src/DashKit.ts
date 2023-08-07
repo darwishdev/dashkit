@@ -10,7 +10,7 @@ import { plugin, defaultConfig } from '@formkit/vue'
 import getWrappedConfig from '@/plugins/formkit.custom.config'
 import ToastService from 'primevue/toastservice';
 import DialogService from 'primevue/dialogservice';
-// import { useDialog } from "primevue/usedialog";
+import { useDialog } from "primevue/usedialog";
 import { DashKitConfig } from "@/types/types"
 import type { DefaultConfigOptions } from '@formkit/vue'
 export default {
@@ -37,6 +37,8 @@ export default {
             app.provide('loginHandler', config.loginHandler)
         }
         app.provide('i18n', i18n)
+        app.provide('useDialog', useDialog)
+        app.provide('uploadHandler', config.uploadHandler)
         // const dialog = useDialog()
         // app.provide('useDialog', useDialog)
 

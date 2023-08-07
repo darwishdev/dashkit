@@ -35,9 +35,7 @@ export default defineConfig({
         if (entry == 'composables') {
           return `composables/composables.js`
         }
-        if (entry == 'useDialogDeleteRestore') {
-          return `composables/useDialogDeleteRestore.js`
-        }
+
 
         return `${entry}.js`
       }

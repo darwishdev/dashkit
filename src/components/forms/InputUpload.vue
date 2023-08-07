@@ -70,7 +70,6 @@ const props = defineProps({
 </script>
 
 <template>
-    {{ baseImage }}
     <div class="upload" :class="{ 'disabled': loading }">
         <div class="loader" v-if="loading">
             <svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
