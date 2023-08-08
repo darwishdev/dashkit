@@ -157,13 +157,20 @@ export type FileUploadResponse = {
 
 
 export type FileRemoveRequest = {
-    fileName: string
+    fileName: string,
+    isSoftDelete: boolean,
 }
 export type FileRemoveResponse = {}
+
+export type FileRestoreRequest = {
+    fileName: string,
+}
+export type FileRestoreResponse = {}
 
 export type UploadHandler = {
     fileUpload: (reuest: FileUploadRequest) => Promise<FileUploadResponse>
     fileRemove: (reuest: FileRemoveRequest) => Promise<FileRemoveResponse>
+    fileRestore: (reuest: FileRestoreRequest) => Promise<FileRestoreResponse>
     baseImageUrl: string
 }
 

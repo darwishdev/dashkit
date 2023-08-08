@@ -94,7 +94,6 @@ export default defineComponent({
         return {
             formSchema,
             log,
-            parent,
             id: props.options.id as string,
             responseData,
             loading,
@@ -107,7 +106,6 @@ export default defineComponent({
 </script>
 
 <template>
-    {{ parent }}
     <form-loading v-if="loading" />
     <form-loading v-else-if="error" :error="error" />
     <FormKit v-else :id="id" :value="responseData" type="form" @submit-invalid="log" :actions="false"

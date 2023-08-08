@@ -7,4 +7,5 @@ export { default as AppMenu } from './AppMenu.vue'
 export { default as AppToast } from './AppToast.vue'
 export { default as AppDialog } from './AppDialog.vue'
 export { default as AppIconBtn } from './AppIconBtn.vue'
+export { default as AppError } from './AppError.vue'
 

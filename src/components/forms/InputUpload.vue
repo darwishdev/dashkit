@@ -1,5 +1,5 @@
 <script setup>
-import { ref, inject } from 'vue'
+import { ref, inject, onUnmounted, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router';
 import { reset } from '@formkit/vue';
 const route = useRoute()
@@ -7,7 +7,13 @@ const route = useRoute()
 const uploadHandler = inject('uploadHandler')
 const loading = ref(false)
 
+const isSoftDelete = ref(false)
+const fileToBeRestored = ref("")
 
+onBeforeMount(() => {
+    console.log("jhel")
+    isSoftDelete.value = props.context._value && props.context._value != ""
+})
 const getExtension = (name) => {
     return name.slice(name.lastIndexOf('.') + 1);
 }
@@ -46,20 +52,35 @@ async function handleInput(data) {
     uploadHandler.fileUpload(req).then((res) => {
         props.context._value = res.fileName
         props.context.node.input(res.fileName)
+        isSoftDelete.value = false
+        fileToBeRestored.value = ""
         loading.value = false
+    }).catch((e) => {
+        console.log(e)
+        loading.value = false
+
     })
 
 }
 
 
+onUnmounted(() => {
+    if (fileToBeRestored.value != "") {
+        uploadHandler.fileRestore({ fileName: fileToBeRestored.value })
+    }
+})
+
 const handleFileRemove = async () => {
     if (!props.context._value || props.context._value == "") return
     loading.value = true
-    await uploadHandler.fileRemove({ fileName: props.context._value })
-    props.context._value = ""
-    props.context.node.input(props.context._value)
-    loading.value = false
-    reset('file-input')
+    await uploadHandler.fileRemove({ fileName: props.context._value, isSoftDelete: isSoftDelete.value }).then(() => {
+        fileToBeRestored.value = isSoftDelete.value ? props.context._value : ""
+        props.context._value = ""
+        isSoftDelete.value = false
+        props.context.node.input(props.context._value)
+        loading.value = false
+        reset('file-input')
+    })
 
 
 }
