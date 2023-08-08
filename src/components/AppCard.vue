@@ -1,18 +1,15 @@
 <script  lang="ts">
 
-import { useDialogUpdate, useDialogDeleteRestore } from '@/composables/composables';
 
 
-import type { FormUpdateParams, DialogDeleteRestoreParms, DialogUpdateParms, DeleteRestoreHandler } from '@/types/types'
-import { inject } from 'vue'
+import type { FormUpdateParams, DeleteRestoreHandler } from '@/types/types'
 import type { PropType } from 'vue'
 import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
-import type { I18n } from 'vue-i18n/dist/vue-i18n.js';
 
-import { useToast } from 'primevue/usetoast';
-import { handleSuccessToast, getRouteVariation, Can } from '@/utils/helpers';
-import { useDialog } from 'primevue/usedialog';
+// import { useToast } from 'primevue/usetoast';
+import { getRouteVariation, Can } from '@/utils/helpers';
+// import { useDialog } from 'primevue/usedialog';
 
 export default defineComponent({
     props: {
@@ -24,6 +21,14 @@ export default defineComponent({
             type: Number,
             required: true,
         },
+        dialogUpdate: {
+            type: Object as PropType<{ openDialog: (recordId: number) => void }>,
+            required: false
+        },
+        dialogDeleteRestore: {
+            type: Object as PropType<{ openDialog: (recordId: number) => void }>,
+            required: false
+        },
         updateForm: {
             type: Object as PropType<FormUpdateParams>,
             required: false,
@@ -33,49 +38,21 @@ export default defineComponent({
             required: false,
         },
     },
-    setup(props, { emit }) {
+    setup(props) {
         const { push, currentRoute } = useRouter()
-        const dialog = useDialog()
-        const toast = useToast()
-        const i18n = inject('i18n') as I18n
-        const { t } = i18n.global
-        let deleteRestoreDialog = undefined as any
-        let updateDialog = undefined as any
-        if (props.deleteRestoreHandler) {
-            const deleteRestoreDialogParm: DialogDeleteRestoreParms = {
-                onConfirmed: () => {
-                    emit('onDeleteRestore', props.recordId)
-                    handleSuccessToast(props.deleteRestoreHandler!.toastHandler, toast, t, 'deleted')
-                },
-                dialog,
-                deleteRestoreHandler: props.deleteRestoreHandler,
-                recordId: props.recordId,
 
-            }
-            deleteRestoreDialog = useDialogDeleteRestore(deleteRestoreDialogParm);
-        }
 
         const update = () => {
-            if (props.updateForm && updateDialog == undefined) {
-                const updateDialogParms: DialogUpdateParms = {
-                    onConfirmed: () => emit('onShowUpdateDialog', props.recordId),
-                    form: props.updateForm,
-                    dialog,
-                }
-                updateDialog = useDialogUpdate(updateDialogParms);
-                updateDialog.openDialog(props.recordId)
+            if (props.dialogUpdate) {
+                props.dialogUpdate.openDialog(props.recordId)
                 return
             }
-            if (updateDialog != undefined) {
-                updateDialog.openDialog(props.recordId)
-            } else {
-                const routeName = getRouteVariation(currentRoute.value.name as string, 'update');
-                push({ name: routeName, params: { id: props.recordId } })
-            }
+            const routeName = getRouteVariation(currentRoute.value.name as string, 'update');
+            push({ name: routeName, params: { id: props.recordId } })
         }
         const deleteRestore = () => {
-            if (deleteRestoreDialog != undefined) {
-                deleteRestoreDialog.openDialog()
+            if (props.dialogDeleteRestore) {
+                props.dialogDeleteRestore.openDialog(props.recordId)
             }
         }
         const showDeleteRestoreButton = Can(`${props.feature}DeleteRestore`)

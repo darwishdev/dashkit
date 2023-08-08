@@ -1,6 +1,6 @@
 <script  lang="ts">
 import { FormOptions, SubmitHandler, FormSeciton, ToastHandler } from '@/types/types';
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, inject } from 'vue'
 import FormFactory from '@/utils/form/FormFactory'
 import { useToast } from 'primevue/usetoast';
 import { useI18n } from 'vue-i18n';
@@ -40,6 +40,7 @@ export default defineComponent({
         const formSchema = FormFactory.CreateForm(props.options, props.sections)
         const toast = useToast();
         const { t } = useI18n()
+        const dialog = inject('dialogRef') as any
         const { push, currentRoute } = useRouter()
         const submitHandler = async (req: any, node: any) => {
             const handler = props.submitHandler
@@ -54,11 +55,17 @@ export default defineComponent({
                         if (handler.submitCallBack) await handler.submitCallBack(res)
                         handleSuccessToast(props.toastHandler, toast, t, props.options.title)
                         if (!req.isBulkCreate) {
+                            // check if the form is opened on dialog to close it after submit
+                            if (dialog.value && dialog.value.close) {
+                                dialog.value.close()
+                                resolve(null)
+                                return
+                            }
                             const destinationRoute = handler.redirectRoute ? handler.redirectRoute : getRouteVariation(currentRoute.value.name as string, "list")
                             if (destinationRoute != "") {
                                 push({ name: destinationRoute })
                             }
-                            resolve(null)
+
                             return
                         }
                         node.clearErrors()

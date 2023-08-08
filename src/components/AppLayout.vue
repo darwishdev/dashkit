@@ -1,5 +1,5 @@
 <script  lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, provide, ref } from 'vue'
 import Sidebar from 'primevue/sidebar';
 import AppNav from '@/components/AppNav.vue';
 import Avatar from 'primevue/avatar';
@@ -32,9 +32,13 @@ export default defineComponent({
 
         }
     },
+    mounted() {
+        provide("dialogRef", this.dialogRef)
+    },
     setup() {
         const { currentRoute } = useRouter()
         const isMenuOpened = ref(false)
+        const dialogRef = ref()
         const i18n = useI18n()
         const isSideBarVisible = ref(false)
         const toggleDesktopMenu = () => {
@@ -45,7 +49,7 @@ export default defineComponent({
             isSideBarVisible.value = !isSideBarVisible.value
             localStorage.setItem('asideOpened', isMenuOpened.value.toString())
         }
-        return { toggleDesktopMenu, toggleMobileMenu, currentRoute, isMenuOpened, isSideBarVisible, isRtl: i18n.locale.value == 'ar' }
+        return { toggleDesktopMenu, toggleMobileMenu, dialogRef, currentRoute, isMenuOpened, isSideBarVisible, isRtl: i18n.locale.value == 'ar' }
     },
 })
 </script>
@@ -80,6 +84,6 @@ export default defineComponent({
 
         </Sidebar>
         <app-toast />
-        <dynamic-dialog />
+        <dynamic-dialog ref="dialogRef" />
     </div>
 </template>

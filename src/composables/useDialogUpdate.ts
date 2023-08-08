@@ -1,6 +1,6 @@
 
 import { DialogUpdateParms } from '@/types/types';
-import { h, inject, ref, resolveComponent, defineComponent } from 'vue'
+import { h, ref, resolveComponent, defineComponent } from 'vue'
 export default function useDialogUpdate(params: DialogUpdateParms) {
     const defaultWidth = "65vw"
     const defaultBreakPoint = {
@@ -8,8 +8,6 @@ export default function useDialogUpdate(params: DialogUpdateParms) {
         '640px': '90vw',
     }
     const findHandler = ref(params.form.findHandler);
-    const dialogRef = inject('dialogRef')
-
     const UpdateFormComp = defineComponent({
         setup() {
             const formUpdateComponent = resolveComponent('form-update')
@@ -27,8 +25,6 @@ export default function useDialogUpdate(params: DialogUpdateParms) {
         const width = params.config && params.config.width ? params.config.width : defaultWidth
         const breakpoints = params.config && params.config.breakpoints ? params.config.breakpoints : defaultBreakPoint
         findHandler.value.requestValue = recordId
-
-        console.log(dialogRef)
         params.dialog.open(UpdateFormComp, {
             props: {
                 dismissableMask: true,

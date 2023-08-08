@@ -1,6 +1,6 @@
 <script  lang="ts">
 import { FormOptions, SubmitHandler, FormSeciton, ToastHandler, FindHandler } from '@/types/types';
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, inject, PropType } from 'vue'
 import FormFactory from '@/utils/form/FormFactory'
 import { useToast } from 'primevue/usetoast';
 import { useDataFetcherFind } from '@/composables/composables'
@@ -40,6 +40,8 @@ export default defineComponent({
         const log = console.log
         const formSchema = FormFactory.CreateForm(props.options, props.sections)
         const toast = useToast();
+        const dialog = inject('dialogRef') as any
+
         const { t } = useI18n()
         const { push } = useRouter()
         const { params, name } = useRoute()
@@ -53,6 +55,7 @@ export default defineComponent({
         const { responseData, loading, error } = useDataFetcherFind<FindRequestType, FindResponseType>(props.findHandler.findFunction, req, props.findHandler.mapFunction);
 
         const submitHandler = async (req: any, node: any) => {
+
             const handler = props.submitHandler
             if (handler.mapFunction) {
                 req = handler.mapFunction(req)
@@ -66,19 +69,21 @@ export default defineComponent({
                 handler.submit(req)
                     .then(async (res: any) => {
                         node.reset()
+                        node.clearErrors()
                         if (handler.submitCallBack) await handler.submitCallBack(res)
                         handleSuccessToast(props.toastHandler, toast, t, props.options.title)
-                        if (!req.isBulkCreate) {
-                            const destinationRoute = handler.redirectRoute ? handler.redirectRoute : getRouteVariation(name as string, "list")
-                            if (destinationRoute != "") {
-                                push({ name: destinationRoute })
-                            }
+                        // check if the form is opened on dialog to close it after submit
+                        if (dialog.value && dialog.value.close) {
+                            dialog.value.close()
                             resolve(null)
                             return
                         }
-                        node.clearErrors()
-                        node.input({ isBulkCreate: true });
-                        resolve(null)
+                        const destinationRoute = handler.redirectRoute ? handler.redirectRoute : getRouteVariation(name as string, "list")
+                        if (destinationRoute != "") {
+                            push({ name: destinationRoute })
+                            resolve(null)
+                            return
+                        }
                     }).catch((error: any) => {
                         console.log('form update error', error)
                         handleError(error, node, toast, handler.errorHandler, t)
@@ -89,6 +94,7 @@ export default defineComponent({
         return {
             formSchema,
             log,
+            parent,
             id: props.options.id as string,
             responseData,
             loading,
@@ -101,6 +107,7 @@ export default defineComponent({
 </script>
 
 <template>
+    {{ parent }}
     <form-loading v-if="loading" />
     <form-loading v-else-if="error" :error="error" />
     <FormKit v-else :id="id" :value="responseData" type="form" @submit-invalid="log" :actions="false"

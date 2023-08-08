@@ -4,14 +4,14 @@ import AppDialogFooter from '@/components/AppDialogFooter.vue';
 import type { DialogDeleteRestoreParms } from '@/types/types'
 // import { useDialog } from 'primevue/usedialog'
 export default function useDialogDeleteRestore(params: DialogDeleteRestoreParms) {
-    
+
     const defaultWidth = "25vw"
     const defaultBreakPoint = {
         '960px': '75vw',
         '640px': '90vw',
     }
 
-    function openDialog() {
+    function openDialog(recordId: number) {
         const width = params.config && params.config.width ? params.config.width : defaultWidth
         const breakpoints = params.config && params.config.breakpoints ? params.config.breakpoints : defaultBreakPoint
         params.dialog.open(AppDialogContent, {
@@ -34,7 +34,7 @@ export default function useDialogDeleteRestore(params: DialogDeleteRestoreParms)
                     if (data.confirmed) {
                         const req = {} as any
                         const prop = params.deleteRestoreHandler.requestPropertyName!
-                        req[prop] = params.recordId
+                        req[prop] = recordId
                         params.deleteRestoreHandler.deleteRestore(req).then(() => {
                             if (params.onConfirmed) params.onConfirmed();
 
