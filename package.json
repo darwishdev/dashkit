@@ -1,7 +1,7 @@
 {
   "name": "vuedashkit",
   "private": false,
-  "version": "0.1.17",
+  "version": "0.1.19",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -36,6 +36,8 @@
   "exports": {
     ".": "./dist/DashKit.js",
     "./types": "./dist/types/types.d.ts",
+    "./filters": "./dist/utils/form/filter.js",
+    "./filters.d.ts": "./dist/utils/form/filter.d.ts",
     "./style": "./dist/style.css",
     "./views": "./dist/views/views.js",
     "./views.d.ts": "./dist/views/views.d.ts",
@@ -73,5 +75,9 @@
     "vite-svg-loader": "^4.0.0",
     "vitest": "^0.33.0",
     "vue-tsc": "^1.8.5"
+  },
+  "dependencies": {
+    "@formkit/addons": "^0.17.5",
+    "pluralize": "^8.0.0"
   }
 }

@@ -1,64 +1,47 @@
-<script  lang="ts">
-import { defineComponent, provide, ref } from 'vue'
+<script  setup lang="ts">
+import { onBeforeMount, onMounted, computed, provide, ref, inject } from 'vue'
 import Sidebar from 'primevue/sidebar';
 import AppNav from '@/components/AppNav.vue';
-import Avatar from 'primevue/avatar';
-import Menu from 'primevue/menu';
-import Toolbar from 'primevue/toolbar';
-import Breadcrumb from 'primevue/breadcrumb';
 import { useRouter } from 'vue-router'
-import { useI18n } from 'vue-i18n'
 import DynamicDialog from 'primevue/dynamicdialog';
 // import {} from "@/components"
 import { AppMenu } from "@/components/base"
+import { I18n } from 'vue-i18n/dist/vue-i18n.js';
 
-// import i18n from '@/plugins/i18n'
-export default defineComponent({
-    name: "AppLayout",
 
-    components: {
-        Sidebar,
-        DynamicDialog,
-        AppMenu,
-        AppNav,
-        Menu,
-        Toolbar,
-        Avatar,
-        Breadcrumb
-    },
-    beforeCreate() {
-        if (localStorage.getItem('asideOpened') == 'true') {
-            this.toggleDesktopMenu()
+const { currentRoute } = useRouter()
+const isMenuOpened = ref(false)
+const dialogRef = ref()
+const i18n = inject('i18n') as I18n
+const isSideBarVisible = ref(false)
 
-        }
-    },
-    mounted() {
-        provide("dialogRef", this.dialogRef)
-    },
-    setup() {
-        const { currentRoute } = useRouter()
-        const isMenuOpened = ref(false)
-        const dialogRef = ref()
-        const i18n = useI18n()
-        const isSideBarVisible = ref(false)
-        const toggleDesktopMenu = () => {
-            isMenuOpened.value = !isMenuOpened.value
-            localStorage.setItem('asideOpened', isMenuOpened.value.toString())
-        }
-        const toggleMobileMenu = () => {
-            isSideBarVisible.value = !isSideBarVisible.value
-            localStorage.setItem('asideOpened', isMenuOpened.value.toString())
-        }
-        return { toggleDesktopMenu, toggleMobileMenu, dialogRef, currentRoute, isMenuOpened, isSideBarVisible, isRtl: i18n.locale.value == 'ar' }
-    },
+const sidebarPosition = computed(() => {
+    const isRtl = i18n.global.locale.value == 'ar'
+    return isRtl ? "right" : "left"
+
 })
+const toggleDesktopMenu = () => {
+    isMenuOpened.value = !isMenuOpened.value
+    localStorage.setItem('asideOpened', isMenuOpened.value.toString())
+}
+const toggleMobileMenu = () => {
+    isSideBarVisible.value = !isSideBarVisible.value
+    localStorage.setItem('asideOpened', isMenuOpened.value.toString())
+}
+onMounted(() => {
+    provide("dialogRef", dialogRef)
+})
+onBeforeMount(() => {
+    if (localStorage.getItem('asideOpened') == 'true') {
+        toggleDesktopMenu()
+    }
+}) 
 </script>
 <template>
     <div class="layout-wrapper" :class="{ 'layout-sidebar-active': isMenuOpened }">
         <aside class="desktop-menu">
             <div class="desktop-menu-header">
                 <app-logo class="all-logo" />
-                <app-logo iconOnly class="icon-logo" />
                 <app-icon-btn id="sidebar-lock-icon" :icon="isMenuOpened ? 'lock' : 'lock-open'"
                     @click.prevent="toggleDesktopMenu" />
             </div>
@@ -73,10 +56,9 @@ export default defineComponent({
                 <RouterView />
             </main>
         </div>
-        <Sidebar class="p-sidebar-sm" v-model:visible="isSideBarVisible" :position="isRtl ? 'right' : 'left'">
+        <Sidebar class="p-sidebar-sm" v-model:visible="isSideBarVisible" :position="sidebarPosition">
             <template #header>
                 <app-logo class="all-logo" />
-                <app-logo iconOnly class="icon-logo" />
             </template>
             <KeepAlive>
                 <app-menu />

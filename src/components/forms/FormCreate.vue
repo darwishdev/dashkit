@@ -7,7 +7,7 @@ import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 // import Toast from 'primevue/toast';
 import {
-    handleSuccessToast,
+    handleToastSuccess,
     handleError,
     getRouteVariation
 } from '@/utils/helpers'
@@ -53,7 +53,7 @@ export default defineComponent({
                     .then(async (res: any) => {
                         node.reset()
                         if (handler.submitCallBack) await handler.submitCallBack(res)
-                        handleSuccessToast(props.toastHandler, toast, t, props.options.title)
+                        handleToastSuccess(props.toastHandler, toast, t, props.options.title)
                         if (!req.isBulkCreate) {
                             // check if the form is opened on dialog to close it after submit
                             if (dialog.value && dialog.value.close) {
@@ -73,6 +73,7 @@ export default defineComponent({
                         resolve(null)
                     }).catch((error: any) => {
                         console.log('form create error', error)
+                        console.log(handler.submit, 'req', req)
                         handleError(error, node, toast, handler.errorHandler, t)
                         resolve(null)
                     })

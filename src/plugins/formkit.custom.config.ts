@@ -2,8 +2,6 @@ import { InputUpload, InputPermissions } from "@/components/forms/index"
 import { createInput } from '@formkit/vue'
 import type { DefaultConfigOptions } from '@formkit/vue'
 import customPlugins from './formkitPlugins'
-
-
 const getWrappedConfig = (defaultConfig: DefaultConfigOptions, options: { activateFileUpload: boolean }) => {
     const permissionsInput = createInput(InputPermissions, {
         props: ['permissions'],

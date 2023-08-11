@@ -8,7 +8,7 @@ import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import { useRoute } from 'vue-router';
 import {
-    handleSuccessToast,
+    handleToastSuccess,
     handleError,
     getRouteVariation
 } from '@/utils/helpers'
@@ -71,7 +71,7 @@ export default defineComponent({
                         node.reset()
                         node.clearErrors()
                         if (handler.submitCallBack) await handler.submitCallBack(res)
-                        handleSuccessToast(props.toastHandler, toast, t, props.options.title)
+                        handleToastSuccess(props.toastHandler, toast, t, props.options.title)
                         // check if the form is opened on dialog to close it after submit
                         if (dialog.value && dialog.value.close) {
                             dialog.value.close()

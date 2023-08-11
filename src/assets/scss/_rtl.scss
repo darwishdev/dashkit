@@ -31,7 +31,7 @@ body.rtl {
     border-right: none !important;
   }
   .p-sidebar {
-    border-radius: 30px 0 0 30px !important;
+    border-radius: 15px 0 0 15px !important;
     &-right {
       direction: ltr !important;
     }
@@ -53,5 +53,16 @@ body.rtl {
         transform: translateX(0%) !important;
       }
     }
+  }
+}
+
+.layout-sidebar-active {
+  .p-panelmenu .p-menuitem .material-symbols-outlined {
+    margin-inline-end: 0px;
+    margin-inline-start: 15px;
+  }
+  .p-panelmenu .p-panelmenu-header .material-symbols-outlined {
+    margin-inline-end: 0px;
+    margin-inline-start: 20px;
   }
 }

@@ -8,7 +8,7 @@
     background-color: var(--color-card);
     border-radius: 30px;
     cursor: pointer;
-    padding: 5px;
+    padding: 5px 10px;
     margin-inline-end: 20px;
     margin-top: 10px;
     & svg {
@@ -150,4 +150,45 @@
 }
 .formkit-selector {
   color: var(--color-white);
+}
+
+.app-crud {
+  & .p-panel-header {
+    min-height: 64px;
+    padding: 0 !important;
+
+    & .title {
+      position: absolute;
+      display: flex;
+      position: absolute;
+      left: 20px;
+      & span {
+        font-size: 38px;
+      }
+    }
+    & .p-panel-icons {
+      width: 100%;
+      display: flex;
+      height: 100%;
+      position: absolute;
+      display: flex;
+      align-items: center;
+      & .p-panel-toggler {
+        width: 100%;
+        z-index: 9;
+        height: 100%;
+        border-radius: 0 !important;
+        & .icon {
+          position: absolute;
+          right: 20px;
+        }
+      }
+      & .clear-icon {
+        position: absolute;
+        cursor: pointer;
+        z-index: 10;
+        right: 50px;
+      }
+    }
+  }
 }

@@ -4,7 +4,18 @@ import type { ErrorHandler, ToastHandler, ToastError } from "@/types/types"
 import type { FormKitNode } from "@formkit/core"
 import { ToastServiceMethods } from 'primevue/toastservice'
 import { NavigationGuardNext, RouteLocationNormalized } from "vue-router"
-export const handleSuccessToast = (handler: ToastHandler | undefined, toast: ToastServiceMethods, t: Function, title: string): void => {
+
+import pluralize from 'pluralize';
+
+
+
+export const ListObjectKeysGet = (featureName: string) => {
+    const rows = pluralize(featureName)
+    const firestLetterCapital = rows.charAt(0).toUpperCase() + rows.slice(1)
+    const deletedRows = 'deleted' + firestLetterCapital
+    return { rows, deletedRows }
+}
+export const handleToastSuccess = (handler: ToastHandler | undefined, toast: ToastServiceMethods, t: Function, title: string): void => {
     const defaultTitle = `${title}_success_toast_title`
     const defaultMessage = `${title}_success_toast_message`
     if (handler) {
@@ -96,6 +107,27 @@ export const handleError = (error: any, _node: FormKitNode, _toast: ToastService
 }
 
 
+export const isFirstStringBigger = (str1: string, str2: string) => {
+    // Compare the strings
+    const comparisonResult = str1.localeCompare(str2);
+
+    // Return true if str1 is bigger, otherwise false
+    return comparisonResult > 0;
+}
+
+export const isFirstDateBigger = (date1: string, date2: string) => {
+    const timestamp1 = Date.parse(date1);
+    const timestamp2 = Date.parse(date2);
+
+    return timestamp1 > timestamp2;
+}
+
+export const compareDbDate = (inputValue: string, apiDate: { nanos: any, seconds: any }): boolean => {
+    const dbDate = (Number(apiDate.seconds) * 1000) + (Number(apiDate.nanos) / 1000000);
+    const inputDate = new Date(inputValue);
+    const isInputDateAfter: boolean = inputDate.getTime() < dbDate
+    return isInputDateAfter
+}
 
 export const parseDate = (date: string): string => {
     const dateValue = new Date(date);

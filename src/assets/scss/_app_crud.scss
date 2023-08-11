@@ -1,5 +1,17 @@
 .app-crud {
   // app card
+
+  & .p-button {
+    margin: 0 10px;
+    height: 40px;
+    &.bg-card {
+      border-color: var(--menu-border-color);
+      border-radius: 6px !important;
+      flex: 1;
+      justify-content: center;
+      margin: 0 10px;
+    }
+  }
   & .crud-filter {
     flex: 1;
     // background: var(--color-card);
@@ -15,9 +27,12 @@
     background: var(--color-card);
   }
 }
-// .active-filter .filter {
-//   background-color: var(--color-card);
-// }
+
 .justiy-content-between {
   justify-content: space-between;
+}
+
+.descktop-filters {
+  flex: 1;
+  padding: 0 10px;
 }

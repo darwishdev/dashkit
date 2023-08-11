@@ -1,5 +1,5 @@
 import { LoginRequest, LoginResponse } from '@/api/ApiTypes'
-import { FormKitSchemaNode, FormKitNode } from '@formkit/core'
+import { FormKitSchemaNode } from '@formkit/core'
 import type { ErrorMessages } from "@formkit/core"
 import type { DefaultConfigOptions } from '@formkit/vue'
 import { LocaleMessageObject } from 'vue-i18n/dist/vue-i18n.js'
@@ -42,8 +42,21 @@ export interface DialogDeleteRestoreParms {
         breakpoints?: Record<string, string>
     }
 }
-export interface FilterParser {
-    getDisplayValue(inputNode: FormKitNode): string;
+
+export interface DisplayValueParams {
+    value: string,
+    options?: any[]
+
+}
+export interface basicInputAttrs { name: string, value: any }
+export interface filterFunctionParams {
+    input: basicInputAttrs,
+    data: any
+}
+export interface FilterInput {
+    getDisplayValue(input: DisplayValueParams): string;
+    filterFunction(parms: filterFunctionParams): boolean
+    getEventType(input: { name, oldValue: string, newValue: string }): 'applyFilter' | "applyAllFilters"
 }
 
 export interface FindHandler<Request, Response, TargetResponse> {
@@ -63,9 +76,9 @@ export interface FormUpdateParams {
 
 export interface FormFilterParams {
     inputs: FormKitSchemaNode[],
+    filters: Record<string, FilterInput>,
     options?: FormFilterOptions,
-    modelValue?: Record<string, any>,
-    displayValue?: Record<string, any>,
+    modelValue?: Record<string, any>
 }
 export interface FormCreateParams {
     sections: Array<FormSeciton>
@@ -74,6 +87,13 @@ export interface FormCreateParams {
     toastHandler: ToastHandler
 }
 
+export type AppCrudParams = {
+    options: CrudOptions,
+    dialogCreate?: { openDialog: () => void },
+    listFunction: (req: any) => Promise<any>,
+    importHandler?: ImportHandler<any, any>
+    filterForm?: FormFilterParams,
+}
 export type CrudOptions = {
     title: string
     feature: string

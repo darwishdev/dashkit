@@ -19,6 +19,8 @@ export default function useDataFetcherFind<Request, Response>(fetchFunction: Fun
             } else {
                 responseData.value = response
             }
+            error.value = null
+
         } catch (err: any) {
             error.value = err.message || 'An error occurred.'
         } finally {

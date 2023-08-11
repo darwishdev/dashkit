@@ -1,4 +1,4 @@
-<script   lang="ts">
+<script lang="ts">
 import type { MenuItem } from 'primevue/menuitem';
 import PanelMenu from 'primevue/panelmenu';
 import { defineComponent, PropType, ref } from 'vue';
@@ -17,6 +17,7 @@ export default defineComponent({
             ]
         }
     },
+    functional: true,
     mounted() {
         if (this.$route.fullPath == '/') {
             this.$router.push({ name: 'home_view' }).then(() => this.setExpandedKeyByRoute())

@@ -1,4 +1,5 @@
 
+import { createLocalStoragePlugin } from '@formkit/addons'
 const isCheckboxAndRadioMultiple = (node: any) => (node.props.type === 'checkbox' || node.props.type === 'radio') && node.props.options
 const addAsteriskPlugin = (node: any) => {
     node.on('created', () => {
@@ -58,5 +59,15 @@ const scrollToErrors = (node: any) => {
 
 export default [
     addAsteriskPlugin,
-    scrollToErrors
+    scrollToErrors,
+    createLocalStoragePlugin({
+        // plugin defaults:
+        prefix: 'formkit',
+        key: undefined,
+        control: undefined,
+        maxAge: 3600000, // 1 hour
+        debounce: 200,
+        beforeSave: undefined,
+        beforeLoad: undefined
+    }),
 ]

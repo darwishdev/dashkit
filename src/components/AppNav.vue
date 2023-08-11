@@ -22,7 +22,7 @@ export default defineComponent({
     },
     beforeCreate() {
         if (localStorage.getItem('isRtl') == 'true') {
-            this.isRtl = true
+            this.toggleRtl()
         }
     },
     setup(_, { emit }) {

@@ -1,7 +1,7 @@
 import { ref, onBeforeMount } from 'vue';
 import type { Ref } from 'vue';
 
-export default function useDataFetcherList<Request, Response>(fetchFunction: (req: Request) => Promise<Response>, req: Request): {
+export default function useDataFetcherList<Request, Response>(fetchFunction: (req: Request) => Promise<Response>, req: Request, initialFetch: boolean = true): {
     responseData: Ref<Response | null>,
     loading: Ref<boolean>,
     error: Ref<string | null>,
@@ -19,6 +19,7 @@ export default function useDataFetcherList<Request, Response>(fetchFunction: (re
             // Execute the fetchFunction with the given request parameter
             const response = await fetchFunction(req)
             // Assign the response to the responseData variable
+            error.value = null
             responseData.value = response
         } catch (err: any) {
             error.value = err.message || 'An error occurred.'
@@ -28,7 +29,9 @@ export default function useDataFetcherList<Request, Response>(fetchFunction: (re
     }
 
     onBeforeMount(() => {
-        fetchData()
+        if (initialFetch) {
+            fetchData()
+        }
     })
 
     return {

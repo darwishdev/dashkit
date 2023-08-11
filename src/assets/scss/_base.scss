@@ -63,7 +63,7 @@ body {
 }
 
 .bg-card {
-  background-color: var(--color-card);
+  background-color: var(--color-card) !important;
   border-radius: 60px;
 }
 hr {
