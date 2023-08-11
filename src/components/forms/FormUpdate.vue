@@ -73,8 +73,8 @@ export default defineComponent({
                         if (handler.submitCallBack) await handler.submitCallBack(res)
                         handleToastSuccess(props.toastHandler, toast, t, props.options.title)
                         // check if the form is opened on dialog to close it after submit
-                        if (dialog.value && dialog.value.close) {
-                            dialog.value.close()
+                        if (dialog) {
+                            if (dialog.value.close) dialog.value.close()
                             resolve(null)
                             return
                         }

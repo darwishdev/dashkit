@@ -56,8 +56,9 @@ export default defineComponent({
                         handleToastSuccess(props.toastHandler, toast, t, props.options.title)
                         if (!req.isBulkCreate) {
                             // check if the form is opened on dialog to close it after submit
-                            if (dialog.value && dialog.value.close) {
-                                dialog.value.close()
+                            if (dialog) {
+                                if (dialog.value.close) dialog.value.close()
+
                                 resolve(null)
                                 return
                             }
