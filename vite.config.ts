@@ -6,7 +6,7 @@ import dts from 'vite-plugin-dts';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(), svgLoader(),
-  dts({ include: ["src/DashKit.ts", "src/composables/composables.ts", "src/components/base.ts", "src/views/views.ts", "src/forms/forms.ts", "src/types/types.ts", "src/utils/helpers.ts", "src/utils/form/filter.ts"] }),
+  dts({ include: ["src/DashKit.ts", "src/composables/composables.ts", "src/components/base.ts", "src/views/views.ts", "src/forms/forms.ts", "src/types/types.ts", "src/utils/helpers.ts", "src/utils/form/FormFilter.ts", "src/utils/table/TableHeader.ts"] }),
   ],
   resolve: {
     alias: {
@@ -16,7 +16,7 @@ export default defineConfig({
   build: {
     cssCodeSplit: false,
     lib: {
-      entry: ["./src/DashKit.ts", "src/composables/composables.ts", "src/components/base.ts", "src/views/views.ts", "src/forms/forms.ts", "src/utils/helpers.ts", "src/utils/form/filter.ts", "./src/assets/scss/app.scss"],
+      entry: ["./src/DashKit.ts", "src/composables/composables.ts", "src/components/base.ts", "src/views/views.ts", "src/forms/forms.ts", "src/utils/helpers.ts", "src/utils/form/FormFilter.ts", 'src/utils/table/TableHeader.ts', "./src/assets/scss/app.scss"],
       formats: ["es"],
       name: "DashKit",
       fileName: (_, entry) => {
@@ -32,8 +32,11 @@ export default defineConfig({
         if (entry == 'helpers') {
           return `utils/helpers.js`
         }
-        if (entry == 'filter') {
-          return `utils/form/filter.js`
+        if (entry == 'FormFilter') {
+          return `utils/form/FormFilter.js`
+        }
+        if (entry == 'TableHeader') {
+          return `utils/table/TableHeader.js`
         }
         if (entry == 'composables') {
           return `composables/composables.js`

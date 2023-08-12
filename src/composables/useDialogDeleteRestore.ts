@@ -11,7 +11,7 @@ export default function useDialogDeleteRestore(params: DialogDeleteRestoreParms)
         '640px': '90vw',
     }
 
-    function openDialog(recordId: number) {
+    function openDialog(ids: number[]) {
         const width = params.config && params.config.width ? params.config.width : defaultWidth
         const breakpoints = params.config && params.config.breakpoints ? params.config.breakpoints : defaultBreakPoint
         params.dialog.open(AppDialogContent, {
@@ -34,7 +34,7 @@ export default function useDialogDeleteRestore(params: DialogDeleteRestoreParms)
                     if (data.confirmed) {
                         const req = {} as any
                         const prop = params.deleteRestoreHandler.requestPropertyName!
-                        req[prop] = recordId
+                        req[prop] = ids
                         params.deleteRestoreHandler.deleteRestore(req).then(() => {
                             if (params.onConfirmed) params.onConfirmed();
 

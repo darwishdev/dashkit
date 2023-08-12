@@ -16,3 +16,7 @@ svgo:
 
 init: 
 	make build && make link
+
+
+unlink:
+	npm unlink vuedashkit &&  npm -G unlink vuedashkit

@@ -2,12 +2,45 @@ import { LoginRequest, LoginResponse } from '@/api/ApiTypes'
 import { FormKitSchemaNode } from '@formkit/core'
 import type { ErrorMessages } from "@formkit/core"
 import type { DefaultConfigOptions } from '@formkit/vue'
+import { ColumnProps } from 'primevue/column'
+import { DataTableProps } from 'primevue/datatable'
+import { ImageProps } from 'primevue/image'
+import { VNode } from 'vue'
 import { LocaleMessageObject } from 'vue-i18n/dist/vue-i18n.js'
 export interface DashKitConfig {
     formKitConfig: DefaultConfigOptions
     translations: LocaleMessageObject
     uploadHandler?: UploadHandler
+    baseImageUrl?: string
+    fallBackImageUrl?: string
     loginHandler?: LoginHandler
+}
+export interface AppImageParams {
+    src: string
+    imageProps?: ImageProps
+}
+export interface TableRouter {
+    name: string,
+    paramName: string,
+    paramColumnName: string
+}
+export interface TableOptions {
+    showSelectAll?: boolean
+    showActions?: boolean
+}
+
+export interface AppTableParams {
+    options: TableOptions
+    data: any[];
+    dialogUpdate?: { openDialog: (recordId: number) => void },
+    dialogDeleteRestore?: { openDialog: (recordId: number) => void },
+    modelSelected?: Object;
+    tableProps?: DataTableProps;
+    headers: Record<string, ITableHeader>;
+}
+export interface ITableHeader {
+    columnProps?: ColumnProps;
+    renderHtml?: (value: any) => VNode;
 }
 export interface ToastHandler {
     hideToast?: boolean
@@ -89,7 +122,9 @@ export interface FormCreateParams {
 
 export type AppCrudParams = {
     options: CrudOptions,
+    createPermissionName?: string,
     dialogCreate?: { openDialog: () => void },
+    modelSelection?: Object,
     listFunction: (req: any) => Promise<any>,
     importHandler?: ImportHandler<any, any>
     filterForm?: FormFilterParams,
@@ -98,6 +133,7 @@ export type CrudOptions = {
     title: string
     feature: string
     showExportButton: boolean
+    loadingType?: 'card' | 'table'
     showCreateButton: boolean
     showDeletedFilter: boolean
 }

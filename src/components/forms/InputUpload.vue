@@ -11,7 +11,6 @@ const isSoftDelete = ref(false)
 const fileToBeRestored = ref("")
 
 onBeforeMount(() => {
-    console.log("jhel")
     isSoftDelete.value = props.context._value && props.context._value != ""
 })
 const getExtension = (name) => {
@@ -109,6 +108,7 @@ const props = defineProps({
                 </rect>
             </svg>
         </div>
+        <FormKit id="file-input" @input="handleInput" type="file" name="image" accept=".jpg,.png,.webp,.jpeg" />
         <div v-if="props.context._value && props.context._value.length > 0" class="img-wrapper"
             @click.prevent="handleFileRemove">
             <img class="uploaded-img" :src="`${uploadHandler.baseImageUrl}${props.context._value}`"
@@ -118,7 +118,6 @@ const props = defineProps({
                 {{ $t('remove') }}
             </div>
         </div>
-        <FormKit id="file-input" @input="handleInput" type="file" name="image" accept=".jpg,.png,.webp,.jpeg" />
     </div>
 </template>
 

@@ -60,7 +60,7 @@
   }
 
   & aside.desktop-menu {
-    overflow: scroll;
+    overflow-x: scroll;
     position: fixed;
     overflow: scroll;
     border-right: 1px solid var(--menu-border-color);

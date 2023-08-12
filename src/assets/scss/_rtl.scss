@@ -1,4 +1,9 @@
 body.rtl {
+  [data-type="toggle"] .formkit-wrapper label,
+  .formkit-track {
+    overflow: scroll;
+    direction: ltr !important;
+  }
   direction: rtl;
   --font-family: "Cairo", sans-serif;
   .layout-wrapper {
@@ -54,15 +59,15 @@ body.rtl {
       }
     }
   }
-}
 
-.layout-sidebar-active {
-  .p-panelmenu .p-menuitem .material-symbols-outlined {
-    margin-inline-end: 0px;
-    margin-inline-start: 15px;
-  }
-  .p-panelmenu .p-panelmenu-header .material-symbols-outlined {
-    margin-inline-end: 0px;
-    margin-inline-start: 20px;
+  .layout-sidebar-active {
+    .p-panelmenu .p-menuitem .material-symbols-outlined {
+      margin-inline-end: 0px;
+      margin-inline-start: 15px;
+    }
+    .p-panelmenu .p-panelmenu-header .material-symbols-outlined {
+      margin-inline-end: 0px;
+      margin-inline-start: 20px;
+    }
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "vuedashkit",
   "private": false,
-  "version": "0.1.21",
+  "version": "0.1.23",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -36,8 +36,10 @@
   "exports": {
     ".": "./dist/DashKit.js",
     "./types": "./dist/types/types.d.ts",
-    "./filters": "./dist/utils/form/filter.js",
-    "./filters.d.ts": "./dist/utils/form/filter.d.ts",
+    "./table": "./dist/utils/table/TableHeader.js",
+    "./table.d.ts": "./dist/utils/table/TableHeader.d.ts",
+    "./filters": "./dist/utils/form/FormFilter.js",
+    "./filters.d.ts": "./dist/utils/form/FormFilter.d.ts",
     "./style": "./dist/style.css",
     "./views": "./dist/views/views.js",
     "./views.d.ts": "./dist/views/views.d.ts",

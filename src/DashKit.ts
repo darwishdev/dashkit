@@ -5,6 +5,8 @@ import * as formComponents from "@/components/forms"
 import Button from 'primevue/button';
 import FormFactory from "@/utils/form/FormFactory"
 // import cash from "@/utils/CacheSingleton"
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
 import initI18n from '@/plugins/i18n'
 import PrimeVue from 'primevue/config'
 import { plugin, defaultConfig } from '@formkit/vue'
@@ -37,6 +39,11 @@ export default {
         if (config.loginHandler) {
             app.provide('loginHandler', config.loginHandler)
         }
+        const baseImageUrl = config.baseImageUrl ? config.baseImageUrl : ""
+        const fallBackImageUrl = config.fallBackImageUrl ? config.fallBackImageUrl : ""
+        app.provide('baseImageUrl', baseImageUrl)
+        app.provide('fallBackImageUrl', fallBackImageUrl)
+        app.provide('i18n', i18n)
         app.provide('i18n', i18n)
         app.provide('useDialog', useDialog)
         app.provide('uploadHandler', config.uploadHandler)
@@ -45,7 +52,8 @@ export default {
 
         // add button to global components
         app.component('Button', Button)
-
+        app.component('DataTable', DataTable)
+        app.component('Column', Column)
         // add all componets exported by components/index.ts as global components
         Object.keys(components).forEach((key: string) => {
             app.component(key, components[key as keyof typeof components])

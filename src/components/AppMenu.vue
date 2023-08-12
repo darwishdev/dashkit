@@ -13,7 +13,7 @@ export default defineComponent({
             type: Object as PropType<MenuItem[]>,
             required: false,
             default: [
-                { key: '0', label: 'dashboard', icon: 'pi pi-fw pi-chart-bar', to: { name: 'dashboard_view' } },
+                { key: '0', label: 'dashboard', icon: 'pi pi-fw pi-chart-bar', to: { name: 'home_view' } },
             ]
         }
     },

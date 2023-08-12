@@ -74,7 +74,6 @@ export default defineComponent({
                         resolve(null)
                     }).catch((error: any) => {
                         console.log('form create error', error)
-                        console.log(handler.submit, 'req', req)
                         handleError(error, node, toast, handler.errorHandler, t)
                         resolve(null)
                     })

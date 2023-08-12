@@ -5,6 +5,7 @@ import type { AppCrudParams, filterFunctionParams, ToastError } from '@/types/ty
 import { ref, computed, onUnmounted, inject, onBeforeMount } from 'vue';
 import { ListObjectKeysGet, ExportCSV, Can, handleToastSuccess, handleToastError, ParseFile, convertArrayToObjectArray, getRouteVariation } from '@/utils/helpers'
 import LRU from '@/utils/lru';
+import Toolbar from 'primevue/toolbar';
 import { saveAs } from 'file-saver';
 import Menu from 'primevue/menu';
 import { useToast } from 'primevue/usetoast';
@@ -16,6 +17,7 @@ const props = defineProps<AppCrudParams>();
 const emit = defineEmits<{
     (e: 'showDeleted', status: boolean): void,
     (e: 'export'): void,
+    (e: 'update:modelSelection', value: any): void;
     (e: 'imported', data: any[]): void,
 }>();
 
@@ -34,7 +36,8 @@ const currentData = ref<any[]>([])
 
 const i18n = inject('i18n') as I18n
 const showImportOptions = typeof props.importHandler != 'undefined' && Can(`${props.options.feature}Create`)
-const showCreateButton = props.options.showCreateButton && Can(`${props.options.feature}Create`)
+const createPermission = props.createPermissionName ? props.createPermissionName : `${props.options.feature}Create`
+const showCreateButton = props.options.showCreateButton && Can(createPermission)
 const imprtExportMenu = ref();
 let cache = new LRU<string, any[]>(3);
 let imprtExportOptions: any = []
@@ -42,6 +45,7 @@ const { push, currentRoute } = useRouter()
 const imprtExportMenuToggle = (event: any) => {
     imprtExportMenu.value.toggle(event);
 };
+
 const handleExport = () => {
     ExportCSV(currentData.value)
     emit('export')
@@ -156,7 +160,6 @@ const applyFilter = (input: string) => {
 const clearAllFilters = () => {
     filterModel.value = {}
     formFilterRef.value.clearFilters()
-    console.log("clear filters")
 
 }
 
@@ -177,13 +180,11 @@ const applyAllFilters = () => {
     loading.value = true
     // get current data by the showDeletedData flag congrolled by the swithch
     if (showDeletedData.value && !responseData.value[objectKeys.deletedRows]) {
-        console.log('colud not found the key ', objectKeys.rows, ' inside the response data')
         currentData.value = []
         loading.value = false
         return
     }
     if (!showDeletedData.value && !responseData.value[objectKeys.rows]) {
-        console.log('colud not found the key ', objectKeys.rows, ' inside the response data')
         currentData.value = []
         loading.value = false
         return
@@ -255,106 +256,106 @@ defineExpose({ reFetchData })
 </script>
 
 <template>
+    objectKeys{{ objectKeys }}
     <div class="app-crud">
-
-
-
-
-        <div class="flex justify-content-between align-items-center border-y-1 border-200 py-3">
-            <div class="flex">
-                <Button v-if="showCreateButton" @click.prevent="create" label="New" severity="success" icon="pi pi-plus" />
-                <div class="options" v-if="showImportOptions">
-                    <Button type="button" icon="pi pi-save" :label="$t('options')" @click="imprtExportMenuToggle"
-                        aria-haspopup="true" aria-controls="overlay_menu" />
-                    <Menu ref="imprtExportMenu" id="import_export_menu" :model="imprtExportOptions" :popup="true">
-                        <template #end>
-                            <div class="px-3">
-                                <FormKit type="file" :label="$t('import')" placeholder="import" name="license"
-                                    accept=".csv,.xls,.xlsx" @input="handleImport" />
+        <toolbar>
+            <template #start>
+                <slot name="header-title" />
+                <h2 v-if="!$slots['header-title']">{{ $t(options.title) }}</h2>
+            </template>
+            <template #center>
+                <div v-if="showDektopFilters" class="descktop-filters">
+                    <Panel header="Header" collapsed toggleable>
+                        <template #header>
+                            <div class="title">
+                                <span class="material-symbols-outlined">
+                                    filter_alt
+                                </span>
+                                <h2>{{ $t('show_filters') }}</h2>
                             </div>
                         </template>
-                    </Menu>
-                </div>
-                <Button :aria-label="$t('export')" v-else-if="options.showExportButton" @click="handleExport">
-                    <span class="material-symbols-outlined">
-                        filter_alt
-                    </span>
-                    <span class="px-3">{{ $t('export') }}</span>
-                </Button>
-            </div>
-
-            <div v-if="showDektopFilters" class="descktop-filters">
-                <Panel header="Header" collapsed toggleable>
-                    <template #header>
-                        <div class="title">
-                            <span class="material-symbols-outlined">
-                                filter_alt
-                            </span>
-                            <h2>{{ $t('show_filters') }}</h2>
-                        </div>
-                    </template>
-                    <template #togglericon="{ collapsed }">
-                        <div class="icon">
-                            <span v-if="collapsed" class="material-symbols-outlined">
-                                chevron_right
-                            </span>
-                            <span v-else class="material-symbols-outlined">
-                                expand_more
-                            </span>
-                        </div>
-                    </template>
-                    <template #icons>
-                        <div class="clear-icon" @click.prevent="clearAllFilters" v-if="Object.keys(filterModel).length > 0">
+                        <template #togglericon="{ collapsed }">
+                            <div class="icon">
+                                <span v-if="collapsed" class="material-symbols-outlined">
+                                    chevron_right
+                                </span>
+                                <span v-else class="material-symbols-outlined">
+                                    expand_more
+                                </span>
+                            </div>
+                        </template>
+                        <template #icons>
+                            <div class="clear-icon" @click.prevent="clearAllFilters"
+                                v-if="Object.keys(filterModel).length > 0">
+                                <span class="material-symbols-outlined">
+                                    filter_alt_off
+                                </span>
+                                <span>{{ $t('clear_filters') }}</span>
+                            </div>
+                        </template>
+                        <form-filter v-if="props.filterForm" :filters="props.filterForm.filters" ref="formFilterRef"
+                            v-model="filterModel" :options="{
+                                showActiveFilters: false,
+                                showClearFilters: false,
+                            }" :inputs="props.filterForm.inputs" @applyFilter="applyFilter"
+                            @applyAllFilters="applyAllFilters" @clearFilters="handleClearFilters" />
+                    </Panel>
+                    <div v-if="filtersDisplayModel" class="active-filters">
+                        <div class="filter" v-for="(filter, index) in Object.keys(filtersDisplayModel) " :key="index"
+                            @click.prevent="removeFilter(filter)">
                             <span class="material-symbols-outlined">
                                 filter_alt_off
                             </span>
-                            <span>{{ $t('clear_filters') }}</span>
+                            <h3 class=""> <strong>{{ $t(`${filter}_filter`) }}</strong> : {{
+                                filtersDisplayModel[filter] }} </h3>
+                            <span class="material-symbols-outlined">
+                                close
+                            </span>
                         </div>
-                    </template>
-                    <form-filter v-if="props.filterForm" :filters="props.filterForm.filters" ref="formFilterRef"
-                        v-model="filterModel" :options="{
-                            showActiveFilters: false,
-                            showClearFilters: false,
-                        }" :inputs="props.filterForm.inputs" @applyFilter="applyFilter"
-                        @applyAllFilters="applyAllFilters" @clearFilters="handleClearFilters" />
-                </Panel>
-                <div v-if="filtersDisplayModel" class="active-filters">
-                    <div class="filter" v-for="(filter, index) in Object.keys(filtersDisplayModel) " :key="index"
-                        @click.prevent="removeFilter(filter)">
-                        <span class="material-symbols-outlined">
-                            filter_alt_off
-                        </span>
-                        <h3 class=""> <strong>{{ $t(`${filter}_filter`) }}</strong> : {{
-                            filtersDisplayModel[filter] }} </h3>
-                        <span class="material-symbols-outlined">
-                            close
-                        </span>
                     </div>
                 </div>
+                <Button v-else-if="showMobileFilters" class="bg-card" :aria-label="$t('show_filters')"
+                    @click="filtersSideBar = true">
+                    <span class="material-symbols-outlined">
+                        filter_alt
+                    </span>
+                    <span class="px-3">{{ $t('show_filters') }}</span>
+                </Button>
+            </template>
+            <template #end>
+                <form-kit v-if="options.showDeletedFilter" :classes="{ outer: 'm-0', }" @input="handleDeletedFilter"
+                    type="toggle" name="toggle" :label="$t('show_deleted')" />
+            </template>
+
+        </toolbar>
+        <div class="toolbar">
+            <Button v-if="showCreateButton" @click.prevent="create" label="New" severity="success" icon="pi pi-plus" />
+            <div class="options" v-if="showImportOptions">
+                <Button type="button" icon="pi pi-save" :label="$t('options')" @click="imprtExportMenuToggle"
+                    aria-haspopup="true" aria-controls="overlay_menu" />
+                <Menu ref="imprtExportMenu" id="import_export_menu" :model="imprtExportOptions" :popup="true">
+                    <template #end>
+                        <div class="px-3">
+                            <FormKit type="file" :label="$t('import')" placeholder="import" name="license"
+                                accept=".csv,.xls,.xlsx" @input="handleImport" />
+                        </div>
+                    </template>
+                </Menu>
             </div>
-            <Button v-else-if="showMobileFilters" class="bg-card" :aria-label="$t('show_filters')"
-                @click="filtersSideBar = true">
+            <Button :aria-label="$t('export')" v-else-if="options.showExportButton" @click="handleExport">
                 <span class="material-symbols-outlined">
                     filter_alt
                 </span>
-                <span class="px-3">{{ $t('show_filters') }}</span>
+                <span class="px-3">{{ $t('export') }}</span>
             </Button>
-            <div class="flex justify-content-end align-items-center p-2">
-                <form-kit v-if="options.showDeletedFilter" :classes="{ outer: 'm-0', }" @input="handleDeletedFilter"
-                    type="toggle" name="toggle" :label="$t('show_deleted')" />
-            </div>
-            <slot name="header-right" />
 
-            <slot name="header-left-buttons" />
-        </div>
-        <div class="flex justify-content-between align-items-center border-y-1 border-200 py-3">
-            <h2 v-if="!$slots['header-title']">{{ $t(options.title) }}</h2>
-            <slot name="header-title" />
-
+            <slot name="actions" />
 
         </div>
         <div class="grid" v-if="loading">
-            <app-card-loading class="col " v-for="i in 3" :key="i" />
+            <app-card-loading v-if="options.loadingType == 'card'" class="col " v-for="i in 3" :key="i" />
+            <app-table-loading v-else class="col-12" />
+
         </div>
         <div v-else-if="error">
             <app-error :msg="error" @reload="reFetchData()" />

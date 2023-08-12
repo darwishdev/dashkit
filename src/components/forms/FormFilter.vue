@@ -44,9 +44,7 @@ const filterNonNullValues = (value: any) => {
 }
 
 const removeFilter = (input: string) => {
-    console.log('remove from form filter', input)
     const node = filterForm.value.node
-    console.log('nore from form filter', node, node._value)
     if (node?._value) {
         node._value[input] = undefined
     }
