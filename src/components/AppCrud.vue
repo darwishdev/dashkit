@@ -256,7 +256,6 @@ defineExpose({ reFetchData })
 </script>
 
 <template>
-    objectKeys{{ objectKeys }}
     <div class="app-crud">
         <toolbar>
             <template #start>

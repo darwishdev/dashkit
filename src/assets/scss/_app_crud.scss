@@ -1,27 +1,43 @@
 .app-crud {
   background-color: var(--color-card);
   padding: 20px;
+  border-radius: 6px;
+
+  @media (max-width: 679px) {
+    padding: 8px;
+
+    & .p-toolbar {
+      & .p-toolbar-group-center {
+        order: 1;
+      }
+      & .p-toolbar-group-end {
+        margin: 10px 0;
+      }
+    }
+  }
   & .toolbar,
   & .p-toolbar {
     display: flex;
+    flex-wrap: wrap;
     border-radius: 6px;
     border: 1px solid var(--color-border) !important;
     padding: 20px;
     box-shadow: var(--shadow);
     align-items: center;
     margin-bottom: 20px;
-  }
-
-  border-radius: 6px;
-  & .p-button {
-    margin: 0 10px;
-    height: 40px;
-    &.bg-card {
-      border-color: var(--menu-border-color);
-      border-radius: 6px !important;
-      flex: 1;
-      justify-content: center;
+    & .p-button {
       margin: 0 10px;
+      height: 40px;
+      &.bg-card {
+        border-color: var(--menu-border-color);
+        border-radius: 6px !important;
+        flex: 1;
+        justify-content: center;
+        margin: 0 10px;
+      }
+      @media (max-width: 679px) {
+        margin: 5px;
+      }
     }
   }
 
@@ -42,10 +58,6 @@
     border-radius: 6px 6px 0 0;
     background: var(--color-card);
   }
-}
-
-.justiy-content-between {
-  justify-content: space-between;
 }
 
 .descktop-filters {

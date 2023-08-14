@@ -49,8 +49,9 @@ export default defineComponent({
         type FindResponseType = ReturnType<typeof props.findHandler.findFunction>;
         type FindRequestType = Record<string, number>
         const req: FindRequestType = {}
-
         const requestValue = props.findHandler.requestValue ? props.findHandler.requestValue : parseInt(params.id as string)
+        console.log('req')
+        console.log(req)
         req[props.findHandler.requestPropertyName] = requestValue
         const { responseData, loading, error } = useDataFetcherFind<FindRequestType, FindResponseType>(props.findHandler.findFunction, req, props.findHandler.mapFunction);
 
@@ -85,7 +86,7 @@ export default defineComponent({
                             return
                         }
                     }).catch((error: any) => {
-                        console.log('form update error', error)
+                        console.log('form update error', error.message)
                         handleError(error, node, toast, handler.errorHandler, t)
                         resolve(null)
                     })

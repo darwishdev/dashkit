@@ -27,12 +27,12 @@ const generateActions = (data: any): VNode[] => {
         let updateFunc: () => void
         if (props.dialogUpdate) {
             updateFunc = () => {
-                props.dialogUpdate?.openDialog(data['ingredientId'])
+                props.dialogUpdate?.openDialog(data[props.dataKey])
             }
         } else {
             updateFunc = () => {
                 const routeName = getRouteVariation(currentRoute.value.name as string, 'update');
-                push({ name: routeName, params: { id: data['ingredientId'] } })
+                push({ name: routeName, params: { id: data[props.dataKey] } })
             }
         }
         const updateBtn = h(appIconBtn, {
@@ -43,7 +43,7 @@ const generateActions = (data: any): VNode[] => {
     }
     if (userCanDeleteRestore && props.dialogDeleteRestore) {
         const deleteRestoreFunc: () => void = () => {
-            props.dialogDeleteRestore?.openDialog(data['ingredientId'])
+            props.dialogDeleteRestore?.openDialog(data[props.dataKey])
         }
         const deleteBtn = h(appIconBtn, {
             class: "remove-icon",

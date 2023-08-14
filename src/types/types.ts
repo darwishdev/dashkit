@@ -31,6 +31,7 @@ export interface TableOptions {
 
 export interface AppTableParams {
     options: TableOptions
+    dataKey: string
     data: any[];
     dialogUpdate?: { openDialog: (recordId: number) => void },
     dialogDeleteRestore?: { openDialog: (recordId: number) => void },
@@ -232,6 +233,7 @@ export type UploadHandler = {
 
 export type LoginHandler = {
     submit: (req: LoginRequest) => Promise<LoginResponse>
+    authorize: (req: any) => Promise<any>
     errorHandler: ErrorHandler
     redirectRoute: string
 }

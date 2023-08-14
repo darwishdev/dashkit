@@ -48,6 +48,7 @@ export default defineComponent({
                 req = handler.mapFunction(req)
             }
 
+
             await new Promise((resolve) => {
                 handler.submit(req)
                     .then(async (res: any) => {
@@ -73,7 +74,7 @@ export default defineComponent({
                         node.input({ isBulkCreate: true });
                         resolve(null)
                     }).catch((error: any) => {
-                        console.log('form create error', error)
+                        console.log('form create error', error.message)
                         handleError(error, node, toast, handler.errorHandler, t)
                         resolve(null)
                     })

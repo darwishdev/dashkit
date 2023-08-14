@@ -35,7 +35,7 @@ body {
     border-radius: 6px;
   }
 
-  & .loading {
+  & .loading-page {
     width: 100vw;
     height: 100vh;
     position: fixed;
@@ -121,4 +121,8 @@ nav {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.justiy-content-between {
+  justify-content: space-between;
 }
