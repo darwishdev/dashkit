@@ -126,7 +126,8 @@ export type AppCrudParams = {
     createPermissionName?: string,
     dialogCreate?: { openDialog: () => void },
     modelSelection?: Object,
-    listFunction: (req: any) => Promise<any>,
+    listFunction?: (req: any) => Promise<any>,
+    data?: any[],
     importHandler?: ImportHandler<any, any>
     filterForm?: FormFilterParams,
 }

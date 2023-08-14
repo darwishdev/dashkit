@@ -1,6 +1,5 @@
 
 <script setup lang="ts">
-import useDataFetcherList from '@/composables/useDataFetcherList';
 import type { AppCrudParams, filterFunctionParams, ToastError } from '@/types/types'
 import { ref, computed, onUnmounted, inject, onBeforeMount } from 'vue';
 import { ListObjectKeysGet, ExportCSV, Can, handleToastSuccess, handleToastError, ParseFile, convertArrayToObjectArray, getRouteVariation } from '@/utils/helpers'
@@ -21,17 +20,59 @@ const emit = defineEmits<{
     (e: 'imported', data: any[]): void,
 }>();
 
-const filtersSideBar = ref(false)
+const cacheKey = computed(() => {
+    return `${props.options.feature}.${JSON.stringify(filterModel.value)}${showDeletedData.value ? '.deleted' : ''}`
+})
+
+const wholeData = computed(() => {
+    if (props.data) {
+        return props.data
+    }
+    if (props.listFunction) {
+        if (responseData.value) {
+            return responseData.value
+        }
+    }
+    return []
+})
+
+const sidebarPosition = computed(() => {
+    const isRtl = i18n.global.locale.value == 'ar'
+    return isRtl ? "left" : "right"
+
+})
+
 const mobileWindowWidth = 576
 const toast = useToast();
 // get the propery name for the save & deleted rows
 const objectKeys = ListObjectKeysGet(props.options.feature)
 // refs
+const responseData = ref(null)
+const loading = ref(false)
+const error = ref(null)
+
+const filtersSideBar = ref(false)
 const formFilterRef = ref()
 const showDeletedData = ref(false)
 const filterModel = ref({})
 // const clearFilters = ref<boolean | undefined>()
-const { responseData, loading, error, fetchData } = useDataFetcherList<any, any>(props.listFunction, {}, false);
+const fetchData = async () => {
+    loading.value = true
+
+    try {
+        // Execute the fetchFunction with the given request parameter
+        const response = await props.listFunction!({})
+        // Assign the response to the responseData variable
+        error.value = null
+        responseData.value = response
+    } catch (err: any) {
+        error.value = err.message || 'An error occurred.'
+    } finally {
+        loading.value = false
+    }
+}
+// if()
+// const { responseData, loading, error, fetchData } = useDataFetcherList<any, any>(props.listFunction, {}, false);
 const currentData = ref<any[]>([])
 
 const i18n = inject('i18n') as I18n
@@ -69,16 +110,6 @@ if (showImportOptions) {
     }
 }
 
-const cacheKey = computed(() => {
-    return `${props.options.feature}.${JSON.stringify(filterModel.value)}${showDeletedData.value ? '.deleted' : ''}`
-})
-
-
-const sidebarPosition = computed(() => {
-    const isRtl = i18n.global.locale.value == 'ar'
-    return isRtl ? "left" : "right"
-
-})
 
 const filtersDisplayModel = computed(() => {
     const keys = Object.keys(filterModel.value)
@@ -102,10 +133,14 @@ onUnmounted(() => {
 
 
 const reFetchData = () => {
+    if (props.data) {
+        currentData.value = props.data
+        return
+    }
     cache.clear()
     loading.value = true
     fetchData().then(() => {
-        if (showDeletedData.value && typeof responseData.value[objectKeys.deletedRows] == 'undefined') {
+        if (showDeletedData.value && typeof responseData.value![objectKeys.deletedRows] == 'undefined') {
             currentData.value = []
             loading.value = false
             return
@@ -179,18 +214,17 @@ const applyAllFilters = () => {
     }
     loading.value = true
     // get current data by the showDeletedData flag congrolled by the swithch
-    if (showDeletedData.value && !responseData.value[objectKeys.deletedRows]) {
+    if (showDeletedData.value && !wholeData.value[objectKeys.deletedRows]) {
         currentData.value = []
         loading.value = false
         return
     }
-    if (!showDeletedData.value && !responseData.value[objectKeys.rows]) {
+    if (!showDeletedData.value && !wholeData.value[objectKeys.rows]) {
         currentData.value = []
         loading.value = false
         return
     }
-
-    const data = showDeletedData.value ? responseData.value[objectKeys.deletedRows] : responseData.value[objectKeys.rows];
+    const data = showDeletedData.value ? wholeData.value[objectKeys.deletedRows] : wholeData.value[objectKeys.rows];
     if (data.length == 0) {
         currentData.value = []
         loading.value = false
@@ -331,7 +365,7 @@ defineExpose({ reFetchData })
             <Button v-if="showCreateButton" @click.prevent="create" label="New" severity="success" icon="pi pi-plus" />
             <div class="options" v-if="showImportOptions">
                 <Button type="button" icon="pi pi-save" :label="$t('options')" @click="imprtExportMenuToggle"
-                    aria-haspopup="true" aria-controls="overlay_menu" />
+                    aria-haspopup="true" aria-controls="overl ay_menu" />
                 <Menu ref="imprtExportMenu" id="import_export_menu" :model="imprtExportOptions" :popup="true">
                     <template #end>
                         <div class="px-3">
