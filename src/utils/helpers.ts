@@ -139,6 +139,14 @@ export const isFirstStringBigger = (str1: string, str2: string) => {
 }
 
 export const isFirstDateBigger = (date1: string, date2: string) => {
+    if (date1 == null && date2 != null) {
+        //do smth
+        return false
+    }
+    if (date2 == null && date1 != null) {
+        //do smth
+        return true
+    }
     const timestamp1 = Date.parse(date1);
     const timestamp2 = Date.parse(date2);
 
