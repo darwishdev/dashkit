@@ -36,6 +36,7 @@ export default defineComponent({
         }
     },
     setup(props) {
+
         const log = console.log
         const formSchema = FormFactory.CreateForm(props.options, props.sections)
         const toast = useToast();
@@ -43,17 +44,21 @@ export default defineComponent({
         const dialog = inject('dialogRef') as any
         const { push, currentRoute } = useRouter()
         const submitHandler = async (req: any, node: any) => {
+
+
             const handler = props.submitHandler
             if (handler.mapFunction) {
-                req = handler.mapFunction(req)
+                req = handler.mapFunction!(req)
             }
 
 
             await new Promise((resolve) => {
                 handler.submit(req)
                     .then(async (res: any) => {
-                        node.reset()
-                        if (handler.submitCallBack) await handler.submitCallBack(res)
+                        // console.log("heloo")
+                        // return
+
+                        if (handler.submitCallBack) await handler.submitCallBack!(res)
                         handleToastSuccess(props.toastHandler, toast, t, props.options.title)
                         if (!req.isBulkCreate) {
                             // check if the form is opened on dialog to close it after submit
@@ -71,7 +76,13 @@ export default defineComponent({
                             return
                         }
                         node.clearErrors()
+                        try {
+                            node.reset()
+                        } catch (e: any) {
+                            console.log("reset form has error", e)
+                        }
                         node.input({ isBulkCreate: true });
+
                         resolve(null)
                     }).catch((error: any) => {
                         console.log('form create error', error.message)
@@ -95,16 +106,4 @@ export default defineComponent({
     <FormKit :id="id" type="form" @submit-invalid="log" :actions="false" @submit="submitHandler">
         <FormKitSchema :schema="formSchema" />
     </FormKit>
-
-    <!-- <toast>
-            <template #message="slotProps">
-                <div class="flex toast-inner flex-column align-items-center" style="flex: 1">
-                    <div class="text-center">
-                        <h1 class="font-bold text-4xl ">{{ slotProps.message.summary }}</h1>
-                        <p class="my-1">{{ slotProps.message.detail }}</p>
-                    </div>
-
-                </div>
-            </template>
-        </toast> -->
 </template>

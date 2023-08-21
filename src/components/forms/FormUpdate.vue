@@ -69,7 +69,11 @@ export default defineComponent({
             await new Promise((resolve) => {
                 handler.submit(req)
                     .then(async (res: any) => {
-                        node.reset()
+                        try {
+                            node.reset()
+                        } catch (e: any) {
+                            console.log("reset form has error", e)
+                        }
                         node.clearErrors()
                         if (handler.submitCallBack) await handler.submitCallBack(res)
                         handleToastSuccess(props.toastHandler, toast, t, props.options.title)

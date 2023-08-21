@@ -265,7 +265,12 @@ const handleImport = async (files: any, node: any) => {
     const data = convertArrayToObjectArray(ParseFile(fileContent, extension))
     props.importHandler.submit(data).then(res => {
         if (props.importHandler!.submitCallBack) props.importHandler!.submitCallBack(res)
-        node.reset()
+
+        try {
+            node.reset()
+        } catch (e: any) {
+            console.log("reset form has error", e)
+        }
         reFetchData()
         handleToastSuccess(props.importHandler!.toastHandler, toast, i18n.global.t, 'imported')
     }).catch((err: any) => {
