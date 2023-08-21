@@ -26,7 +26,7 @@ export default defineComponent({
             required: false
         },
         dialogDeleteRestore: {
-            type: Object as PropType<{ openDialog: (recordId: number) => void }>,
+            type: Object as PropType<{ openDialog: (recordIds: number[]) => void }>,
             required: false
         },
         updateForm: {
@@ -52,7 +52,7 @@ export default defineComponent({
         }
         const deleteRestore = () => {
             if (props.dialogDeleteRestore) {
-                props.dialogDeleteRestore.openDialog(props.recordId)
+                props.dialogDeleteRestore.openDialog([props.recordId])
             }
         }
         const showDeleteRestoreButton = Can(`${props.feature}DeleteRestore`)

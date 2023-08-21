@@ -34,7 +34,7 @@ export interface AppTableParams {
     dataKey: string
     data: any[];
     dialogUpdate?: { openDialog: (recordId: number) => void },
-    dialogDeleteRestore?: { openDialog: (recordId: number) => void },
+    dialogDeleteRestore?: { openDialog: (ids: number[]) => void },
     modelSelected?: Object;
     tableProps?: DataTableProps;
     headers: Record<string, ITableHeader>;

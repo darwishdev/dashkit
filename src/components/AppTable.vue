@@ -43,7 +43,7 @@ const generateActions = (data: any): VNode[] => {
     }
     if (userCanDeleteRestore && props.dialogDeleteRestore) {
         const deleteRestoreFunc: () => void = () => {
-            props.dialogDeleteRestore?.openDialog(data[props.dataKey])
+            props.dialogDeleteRestore?.openDialog([data[props.dataKey]])
         }
         const deleteBtn = h(appIconBtn, {
             class: "remove-icon",

@@ -12,6 +12,9 @@ export default function useDialogDeleteRestore(params: DialogDeleteRestoreParms)
     }
 
     function openDialog(ids: number[]) {
+
+        console.log(ids)
+        console.log('ids')
         const width = params.config && params.config.width ? params.config.width : defaultWidth
         const breakpoints = params.config && params.config.breakpoints ? params.config.breakpoints : defaultBreakPoint
         params.dialog.open(AppDialogContent, {
