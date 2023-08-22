@@ -2,7 +2,7 @@
   background-color: var(--color-card);
   padding: 20px;
   border-radius: 6px;
-
+  margin-bottom: 20px;
   @media (max-width: 679px) {
     padding: 8px;
 
@@ -57,6 +57,27 @@
   & .p-accordion-header {
     border-radius: 6px 6px 0 0;
     background: var(--color-card);
+  }
+
+  // icons
+  & .restore-icon {
+    display: none;
+  }
+  & .remove-icon {
+    display: block;
+  }
+
+  &.app-crud-restore {
+    & .restore-icon {
+      display: block;
+    }
+    & .remove-icon,
+    & .edit-icon {
+      display: none;
+    }
+    & .app-card .start {
+      background-color: var(--color-deleted);
+    }
   }
 }
 

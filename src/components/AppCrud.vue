@@ -12,11 +12,13 @@ import Panel from 'primevue/panel';
 import { useRouter } from 'vue-router';
 import Sidebar from 'primevue/sidebar';
 import { I18n } from 'vue-i18n/dist/vue-i18n.js';
+import { isUndefined } from '@/utils/helpers';
 const props = defineProps<AppCrudParams>();
 const emit = defineEmits<{
     (e: 'showDeleted', status: boolean): void,
     (e: 'export'): void,
-    (e: 'update:modelSelection', value: any): void;
+    (e: 'bulkDelete'): void,
+
     (e: 'imported', data: any[]): void,
 }>();
 
@@ -39,6 +41,25 @@ const wholeData = computed(() => {
 const sidebarPosition = computed(() => {
     const isRtl = i18n.global.locale.value == 'ar'
     return isRtl ? "left" : "right"
+
+})
+const bulkDeleteBtn = computed(() => {
+    const btnLabel = showDeletedData.value ? 'restore_all' : 'remove_all'
+    const btnIcon = showDeletedData.value ? 'refresh' : 'trash'
+    if (isUndefined(props.modelSelection)) {
+        const disabled = true
+        return {
+            disabled,
+            btnIcon,
+            btnLabel
+        }
+    }
+    const disabled = props.modelSelection?.length == 0
+    return {
+        disabled,
+        btnIcon,
+        btnLabel
+    }
 
 })
 
@@ -78,7 +99,9 @@ const currentData = ref<any[]>([])
 const i18n = inject('i18n') as I18n
 const showImportOptions = typeof props.importHandler != 'undefined' && Can(`${props.options.feature}Create`)
 const createPermission = props.createPermissionName ? props.createPermissionName : `${props.options.feature}Create`
+const deleteRestorePermission = props.deleteRestorePermissionName ? props.deleteRestorePermissionName : `${props.options.feature}DeleteRestore`
 const showCreateButton = props.options.showCreateButton && Can(createPermission)
+const showBulkDeleteButton = props.options.showBulkDeleteButton && Can(deleteRestorePermission)
 const imprtExportMenu = ref();
 let cache = new LRU<string, any[]>(3);
 let imprtExportOptions: any = []
@@ -257,6 +280,12 @@ const applyAllFilters = () => {
     cache.write(cacheKey.value, currentData.value)
     loading.value = false
 }
+
+const handleBulkDeleteRestore = () => {
+    if (isUndefined(props.modelSelection) || isUndefined(props.dialogDeleteRestore)) return
+    props.dialogDeleteRestore!.openDialog(props.modelSelection)
+    emit('bulkDelete')
+}
 const handleImport = async (files: any, node: any) => {
     if (files.length == 0 || !props.importHandler) return
     const fileInstace = files[0].file
@@ -295,7 +324,7 @@ defineExpose({ reFetchData })
 </script>
 
 <template>
-    <div class="app-crud">
+    <div class="app-crud" :class="{ 'app-crud-restore': showDeletedData }">
         <toolbar>
             <template #start>
                 <slot name="header-title" />
@@ -385,6 +414,13 @@ defineExpose({ reFetchData })
                     filter_alt
                 </span>
                 <span class="px-3">{{ $t('export') }}</span>
+            </Button>
+
+            <Button v-if="showBulkDeleteButton" :aria-label="$t(bulkDeleteBtn.btnLabel)" :disabled="bulkDeleteBtn.disabled"
+                @click="handleBulkDeleteRestore">
+                <span :class="`pi pi-${bulkDeleteBtn.btnIcon}`">
+                </span>
+                <span class="px-3">{{ $t(bulkDeleteBtn.btnLabel) }}</span>
             </Button>
 
             <slot name="actions" />

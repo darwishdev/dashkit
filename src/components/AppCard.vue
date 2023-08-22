@@ -74,9 +74,9 @@ export default defineComponent({
             <slot name="start"></slot>
         </div>
         <div class="flex-grow-1 end flex align-items-center justify-content-center">
-            <div class="absolute z-5 top-0 right-0 p-2">
-                <app-icon-btn v-if="showDeleteRestoreButton" class="list-icon" icon="trash" @click="deleteRestore" />
-                <a v-if="showUpdateButton" class="icon-btn list-icon" @click.prevent="update">
+            <div class="absolute flex z-5 top-0 right-0 p-2">
+                <app-icon-btn v-if="showDeleteRestoreButton" class="remove-icon" icon="trash" @click="deleteRestore" />
+                <a v-if="showUpdateButton" class="icon-btn edit-icon" @click.prevent="update">
                     <i class="pi pi-pencil text-white"></i>
                 </a>
                 <app-icon-btn v-if="showDeleteRestoreButton" class="restore-icon" icon="refresh" @click="deleteRestore" />

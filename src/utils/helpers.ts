@@ -153,6 +153,9 @@ export const isFirstDateBigger = (date1: string, date2: string) => {
     return timestamp1 > timestamp2;
 }
 
+export const isUndefined = (value: any | undefined): boolean => {
+    return typeof value === 'undefined'
+}
 export const compareDbDate = (inputValue: string, apiDate: { nanos: any, seconds: any }): boolean => {
     const dbDate = (Number(apiDate.seconds) * 1000) + (Number(apiDate.nanos) / 1000000);
     const inputDate = new Date(inputValue);

@@ -36,6 +36,7 @@ const generateActions = (data: any): VNode[] => {
             }
         }
         const updateBtn = h(appIconBtn, {
+            class: "edit-icon",
             icon: 'pencil',
             onClick: () => updateFunc()
         })
@@ -100,7 +101,7 @@ const renderTable = () => {
         const column = h(columnComponent, {
             exportable: false,
         }, {
-            body: ({ data }: any) => h('div', generateActions(data)),
+            body: ({ data }: any) => h('div', { class: 'flex' }, generateActions(data)),
             header: () => h('th', t(`actions`))
         })
         columns.push(column)

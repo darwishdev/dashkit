@@ -3,7 +3,6 @@ import { FormKitSchemaNode } from '@formkit/core'
 import type { ErrorMessages } from "@formkit/core"
 import type { DefaultConfigOptions } from '@formkit/vue'
 import { ColumnProps } from 'primevue/column'
-import { DataTableProps } from 'primevue/datatable'
 import { ImageProps } from 'primevue/image'
 import { VNode } from 'vue'
 import { LocaleMessageObject } from 'vue-i18n/dist/vue-i18n.js'
@@ -35,8 +34,6 @@ export interface AppTableParams {
     data: any[];
     dialogUpdate?: { openDialog: (recordId: number) => void },
     dialogDeleteRestore?: { openDialog: (ids: number[]) => void },
-    modelSelected?: Object;
-    tableProps?: DataTableProps;
     headers: Record<string, ITableHeader>;
 }
 export interface ITableHeader {
@@ -124,8 +121,10 @@ export interface FormCreateParams {
 export type AppCrudParams = {
     options: CrudOptions,
     createPermissionName?: string,
+    dialogDeleteRestore?: { openDialog: (ids: number[]) => void },
+    deleteRestorePermissionName?: string,
     dialogCreate?: { openDialog: () => void },
-    modelSelection?: Object,
+    modelSelection?: any,
     listFunction?: (req: any) => Promise<any>,
     data?: any[],
     importHandler?: ImportHandler<any, any>
@@ -134,8 +133,9 @@ export type AppCrudParams = {
 export type CrudOptions = {
     title: string
     feature: string
-    showExportButton: boolean
     loadingType?: 'card' | 'table'
+    showBulkDeleteButton?: boolean
+    showExportButton: boolean
     showCreateButton: boolean
     showDeletedFilter: boolean
 }

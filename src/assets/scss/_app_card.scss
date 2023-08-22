@@ -1,9 +1,4 @@
 .app-card {
-  // app card
-  & .restore-icon {
-    display: none;
-  }
-
   & .start {
     background-color: var(--color-primary);
     border-start-start-radius: var(--border-radius) !important;
@@ -17,18 +12,5 @@
     overflow: hidden !important;
     white-space: nowrap !important;
     text-overflow: ellipsis !important;
-  }
-  &.app-card-restore {
-    & .restore-icon {
-      display: block;
-    }
-
-    & .list-icon {
-      display: none;
-    }
-
-    & .start {
-      background-color: var(--color-deleted);
-    }
   }
 }

@@ -1,5 +1,4 @@
 .app-table {
-  // app table
   & thead.p-datatable-thead {
     background-color: var(--color-dialog) !important;
     box-shadow: var(--shadow);
@@ -10,20 +9,5 @@
     background-color: var(--color-card) !important;
 
     box-shadow: var(--shadow);
-  }
-  & .restore-icon {
-    display: none;
-  }
-
-  &.app-table-restore {
-    & .restore-icon {
-      display: block;
-    }
-    & .remove-icon {
-      display: none;
-    }
-    & .start {
-      background-color: var(--color-deleted);
-    }
   }
 }

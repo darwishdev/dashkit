@@ -69,15 +69,16 @@ export default defineComponent({
             await new Promise((resolve) => {
                 handler.submit(req)
                     .then(async (res: any) => {
+
+                        node.clearErrors()
+                        if (handler.submitCallBack) await handler.submitCallBack(res)
+                        handleToastSuccess(props.toastHandler, toast, t, props.options.title)
+                        // check if the form is opened on dialog to close it after submit
                         try {
                             node.reset()
                         } catch (e: any) {
                             console.log("reset form has error", e)
                         }
-                        node.clearErrors()
-                        if (handler.submitCallBack) await handler.submitCallBack(res)
-                        handleToastSuccess(props.toastHandler, toast, t, props.options.title)
-                        // check if the form is opened on dialog to close it after submit
                         if (dialog) {
                             if (dialog.value.close) dialog.value.close()
                             resolve(null)
